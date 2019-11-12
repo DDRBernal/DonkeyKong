@@ -1,0 +1,85 @@
+package presentacion;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.event.*;
+import java.awt.*;
+import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
+import java.awt.image.BufferedImage;
+import javax.swing.*;
+public class DonkeyKong extends JFrame{
+
+    private JPanel panel;
+    private Dimension screenSize;
+    private static DonkeyKong donkeyKongP;
+    private DonkeyKongGUI donkeyKongGUI;
+    private JButton play;
+    private Imagenes i = new Imagenes();
+
+    public DonkeyKong(){
+        super("DonkeyKong");
+        prepareElementos();
+        //prepareAcciones();
+    }
+
+    public void prepareElementos(){
+        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        panel = new JPanel(){
+            BufferedImage image = i.getImagen("fondoJuego.png");
+
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(image, 0, 0, screenSize.width / 2, screenSize.height / 2, this);
+            }
+        };
+
+        ImageIcon icon = new ImageIcon(i.getImagen("button1player.jpg"));
+        play = new JButton("",icon);
+        panel.add(play);
+
+        setSize(screenSize.width / 2, screenSize.height / 2);
+
+        this.setContentPane(panel);
+        this.setVisible(true);
+        this.setResizable(false);
+        this.setLayout(null);
+        setLocationRelativeTo(null);
+    }
+
+
+    public void prepareAcciones(){
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                salga();
+            }
+        });
+        play.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                jugar(1, "");
+            }
+        });
+    }
+
+    /**
+     * Inicializar juego
+     */
+    public void jugar(int numero, String c) {
+        donkeyKongGUI = new DonkeyKongGUI(this);
+        donkeyKongGUI.setVisible(true);
+        donkeyKongGUI.start();
+        donkeyKongP.setVisible(false);
+    }
+
+    /**
+     * Si se quiere salir de la ventana, solicitar confirmacion
+     */
+    public void salga() {
+        int c = JOptionPane.showConfirmDialog(null, "Desea salir?", "EXIT", JOptionPane.YES_NO_OPTION);
+        if (JOptionPane.YES_OPTION == c) {
+            System.exit(1);
+        }
+    }
+
+}

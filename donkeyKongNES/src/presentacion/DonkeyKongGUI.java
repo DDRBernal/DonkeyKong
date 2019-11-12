@@ -2,7 +2,8 @@ package presentacion;
 import aplicacion.*;
 
 import javax.swing.border.EmptyBorder;
-
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import javax.swing.*;
 
 import java.awt.*;
@@ -20,13 +21,19 @@ import javax.swing.border.EmptyBorder;
 
 public class DonkeyKongGUI extends JFrame {
 
-    private JPanel fondo;
-    private Image background;
+    private boolean running, end;
+    private DonkeyKong donkeyKongA;
+    private DonkeyKongGame game;
     private JButton jugar;
     private ImageIcon img;
+    private final Set<Integer> pressed = new HashSet<Integer>();
+    private DonkeyKong dk;
 
-    public DonkeyKongGUI(){
+    public DonkeyKongGUI(DonkeyKong dk){
         super("DonkeyKong");
+        this.dk=dk;
+        donkeyKongA=new DonkeyKong();
+        game=new DonkeyKongGame(donkeyKongA);
         prepareElementos();
         prepareAcciones();
     }
@@ -37,8 +44,11 @@ public class DonkeyKongGUI extends JFrame {
     private void prepareElementos(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(597,480);
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(game,BorderLayout.CENTER);
+        setBounds(0,0,597,480);
         setLocationRelativeTo(null);
-        preparePantallaPrincipal();
+        //preparePantallaPrincipal();
     }
 
     /**
@@ -49,7 +59,7 @@ public class DonkeyKongGUI extends JFrame {
         ImageIcon imgf = new ImageIcon("resources/button1player.jpg");
         jugar.setIcon(imgf);
         setInvisibleButton(jugar);
-        img =  new ImageIcon("resources/donkeyFondo.jpg");
+        img =  new ImageIcon("resources/fondoJuego.jpg");
         setContentPane(new JLabel(img));
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -73,24 +83,30 @@ public class DonkeyKongGUI extends JFrame {
      */
     private void prepareAcciones() {
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                salga();
-            }
-        });
-        jugar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                remove(jugar);
-                prepareElementosInicial();
-            }
-        });
-    }
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                pressed.add(e.getKeyCode());
+                if (pressed.size()>1){
+                    for (Integer num: pressed){
+                        //donkeyKongA.moverMario(num);
+                    }
+                } else{
+                    Integer num = e.getKeyCode();
+                    //donkeyKongA.moverMario(num);
 
-    private void prepareElementosInicial(){
-        setPreferredSize(new Dimension(933, 544));
-        pack();
-        setLocationRelativeTo(null);
-        prepareTablero();
+                }
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {
+                pressed.remove(e.getKeyCode());
+            }
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+        });
     }
 
     private void prepareTablero(){
@@ -99,28 +115,16 @@ public class DonkeyKongGUI extends JFrame {
         setVisible(true);
     }
 
-    /**
-     * genera el background o fondo de el juego
-     * @param imagePath
-     */
-    public void setBackground(String imagePath) {
-        fondo.setOpaque(false);
-        this.background = new ImageIcon("resources/donkeyFondo.png").getImage();
-        fondo.repaint();
-    }
+//    /**
+//     * genera el background o fondo de el juego
+//     * @param imagePath
+//     */
+//    public void setBackground(String imagePath) {
+//        fondo.setOpaque(false);
+//        this.background = new ImageIcon("resources/donkeyFondo.png").getImage();
+//        fondo.repaint();
+//    }
 
-    /**
-     * punta los componentes
-     * @param g
-     */
-    public void paintComponent(Graphics g) {
-        int width = this.getSize().width;
-        int height = this.getSize().height;
-        if (this.background != null) {
-            g.drawImage(this.background, 0, 0, width, height, null);
-        }
-        paintComponent(g);
-    }
 
     /**
      * permite salir de el programa
@@ -132,9 +136,128 @@ public class DonkeyKongGUI extends JFrame {
         }
     }
 
-
-    public static void main(String[] args) {
-        DonkeyKongGUI donkeyKongGUI= new DonkeyKongGUI();
-        donkeyKongGUI.setVisible(true);
+    public void start() {
     }
-}
+
+
+    public class DonkeyKongGame extends JPanel {
+
+
+        private Imagenes i = new Imagenes();
+        private Objeto jugador;
+
+        public DonkeyKongGame(DonkeyKong donkeyKongA) {
+            setPreferredSize(new Dimension(587, 480));
+        }
+
+        /**
+         * Esta metodo pertenece a la clase JPanel, nos permite dibujar
+         *
+         * @param g
+         */
+//        public void paintComponent(Graphics g) {
+//            super.paintComponent(g);
+//            g.drawImage(i.getImagen("fondoJuego.jpg"),0,0,getWidth(),getHeight(),this);}
+//            long startFrameTime = (long) (999999999 * Math.random());
+//            int Mx = (int) ((startFrameTime + System.nanoTime()) * Math.abs(-5) * 0.000000001) % 2;
+//            jugador = new Jugador(sp.getPosNaveX(r), sp.getPosNaveY(r), r);
+//            //jugador = new Jugador(0,0);
+//            //drawBarriles();
+//        }
+//
+//        private void drawBarriles(){
+//
+//        }
+        public void paintComponent(Graphics g) {
+            super.paintComponent(g);
+//			Dibujar fondo de JPanel
+            g.drawImage(i.getImagen("donkeyFondo.png"), 0, 0, getWidth(), getHeight(), this);
+            long startFrameTime = (long) (999999999 * Math.random());
+            int Mx = (int) ((startFrameTime + System.nanoTime()) * Math.abs(-5) * 0.000000001) % 2;
+//			Agrego un nuevo jugador grafico
+
+//			Dibujo a este jugador
+
+            jugador = new Jugador(0,0);
+            jugador.draw(g,0,60,60);
+            drawBarriles(g);
+        }
+
+
+
+    private void drawBarriles(Graphics g){
+        for (int i=0; i< 1; i++){
+            Objeto barril = new Barril(10,10);
+            barril.draw(g,0,20,20);
+        }
+    }
+
+
+
+    private class MainLoop implements Runnable {
+            private int dis = 5;
+
+            /*
+             * (non-Javadoc)
+             *
+             * @see java.lang.Runnable#run()
+             */
+            @Override
+            public void run() {
+                long frameRate = 100;
+                while (running) {
+
+//                    long startTime = System.currentTimeMillis();
+//                    // update();
+//                    sp.moverTodo();
+//                    sp.revisarTodo();
+//                    sp.ataqueAlien();
+//                    if (modo == "m") {
+//                        sp.moverNave(1);
+//                        if (dispara()) {
+//                            if (sp.initDisparo(1) == false) {
+//                                sinBalas();
+//                            }
+//                        }
+//                    }
+//                    repaint();
+//                    while (System.currentTimeMillis() - startTime < frameRate) {
+//                        try {
+//                            Thread.sleep(50);
+//                        } catch (InterruptedException ex) {
+//                        }
+//                    }
+//                }
+//                if (!sp.jugadoresVivos()) {
+//                    end = true;
+//                    SpaceInvaders ii = new SpaceInvaders();
+//                    ii.end();
+//                    end();
+//                }
+            }
+
+
+        }
+
+        /**
+         * Inicio del juego y del thread
+         */
+        public void start() {
+            if (running) {
+                return;
+            }
+            running = true;
+            Thread thread = new Thread(new MainLoop());
+            thread.start();
+        }
+
+//        /**
+//         * Fin del juego
+//         */
+//        public void end() {
+//            this.dispose();
+//        }
+
+}}}
+
+
