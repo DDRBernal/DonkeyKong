@@ -43,10 +43,10 @@ public class DonkeyKongGUI extends JFrame {
      */
     private void prepareElementos(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(597,480);
+        setSize(933,544);
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(game,BorderLayout.CENTER);
-        setBounds(0,0,597,480);
+        setBounds(0,0,933,544);
         setLocationRelativeTo(null);
         //preparePantallaPrincipal();
     }
@@ -171,7 +171,7 @@ public class DonkeyKongGUI extends JFrame {
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
 //			Dibujar fondo de JPanel
-            g.drawImage(i.getImagen("donkeyFondo.png"), 0, 0, getWidth(), getHeight(), this);
+            g.drawImage(i.getImagen("fondoJuego.jpg"), 0, 0, getWidth(), getHeight(), this);
             long startFrameTime = (long) (999999999 * Math.random());
             int Mx = (int) ((startFrameTime + System.nanoTime()) * Math.abs(-5) * 0.000000001) % 2;
 //			Agrego un nuevo jugador grafico
@@ -187,8 +187,8 @@ public class DonkeyKongGUI extends JFrame {
 
     private void drawBarriles(Graphics g){
         for (int i=0; i< 1; i++){
-            Objeto barril = new Barril(10,10);
-            barril.draw(g,0,20,20);
+            Barril barril = new Barril(10,10);
+            barril.draw2(g,0,20,20);
         }
     }
 

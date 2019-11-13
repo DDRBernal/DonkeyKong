@@ -33,4 +33,6 @@ public class Jugador {
     public int getPuntos() {
         return this.puntos;
     }
+
+
 }

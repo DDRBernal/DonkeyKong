@@ -20,23 +20,35 @@ public class DonkeyKong extends JFrame{
     public DonkeyKong(){
         super("DonkeyKong");
         prepareElementos();
-        //prepareAcciones();
+        prepareAcciones();
     }
 
     public void prepareElementos(){
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         panel = new JPanel(){
-            BufferedImage image = i.getImagen("fondoJuego.png");
-
+            BufferedImage image = i.getImagen("donkeyFondo.jpg");
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 g.drawImage(image, 0, 0, screenSize.width / 2, screenSize.height / 2, this);
             }
         };
 
-        ImageIcon icon = new ImageIcon(i.getImagen("button1player.jpg"));
+
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        ImageIcon icon = new ImageIcon(i.getImagen("button1player.png"));
         play = new JButton("",icon);
-        panel.add(play);
+        play.setBounds(0,0,229,70);
+        play.setBorderPainted(false);
+        play.setContentAreaFilled(false);
+        play.setFocusPainted(false);
+        play.setOpaque(false);
+
+        gbc.weighty = 1;
+        gbc.weightx = .5;
+        gbc.anchor = GridBagConstraints.CENTER;
+        panel.add(play,gbc);
 
         setSize(screenSize.width / 2, screenSize.height / 2);
 
@@ -57,7 +69,7 @@ public class DonkeyKong extends JFrame{
         });
         play.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                jugar(1, "");
+                jugar(1);
             }
         });
     }
@@ -65,7 +77,7 @@ public class DonkeyKong extends JFrame{
     /**
      * Inicializar juego
      */
-    public void jugar(int numero, String c) {
+    public void jugar(int numero) {
         donkeyKongGUI = new DonkeyKongGUI(this);
         donkeyKongGUI.setVisible(true);
         donkeyKongGUI.start();
@@ -80,6 +92,11 @@ public class DonkeyKong extends JFrame{
         if (JOptionPane.YES_OPTION == c) {
             System.exit(1);
         }
+    }
+
+    public static void main(String[] args){
+        donkeyKongP = new DonkeyKong();
+        donkeyKongP.setVisible(true);
     }
 
 }
