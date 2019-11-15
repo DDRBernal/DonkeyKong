@@ -11,7 +11,7 @@ public class DonkeyKong {
     public DonkeyKong(int numJugadores){
         barriles = new ArrayList<>();
         jugadores = new ArrayList<>();
-        mario = new MarioA(200,100);
+        mario = new MarioA(100,570);
         prepareElementos(numJugadores);
     }
 
@@ -21,12 +21,26 @@ public class DonkeyKong {
         }
     }
 
+    public void moverMario(Integer key){
+        if (key==39){
+            mario.setPosX(0.6);
+        } else if (key==37){
+            mario.setPosX(-0.6);
+        } else{
+            mario.setPosX(-9999);
+        }
+    }
+
     public double getPosMarioX(){
-        return 0;
+        return mario.getPosX();
     }
 
     public double getPosMarioY(){
-        return 0;
+        return mario.getPosY();
+    }
+
+    public int getTurnoMario(){
+        return mario.getTurno();
     }
 
 

@@ -8,6 +8,8 @@ public class MarioA {
     protected double posX,posY;
     protected int vida;
     protected boolean estaMuerto;
+    protected int turno;
+    protected int turno2;
 
 
 
@@ -16,7 +18,9 @@ public class MarioA {
         this.posY = posY;
         this.vida = 10;
         this.estaMuerto = false;
+        turno=0;
     }
+
 
     public int getVida() {
         return vida;
@@ -32,9 +36,22 @@ public class MarioA {
     }
 
     public void setPosX(double x) {
-        this.posX += x;
-        posX = posX < 1 ? 1 : posX;
-        posX = posX > 740 ? 740 : posX;
+        if (x!=-9999) {
+            modifiqueTurno();
+            posX += x;
+            posX = posX < 1 ? 1 : posX;
+            posX = posX > 544 ? 544 : posX;
+        }else{
+            turno=0;
+        }
+    }
+
+    private void modifiqueTurno(){
+        if (turno<3) {
+            turno++;
+        } else{
+            turno=0;
+        }
     }
 
     public void setPosY(double y) {
@@ -47,6 +64,10 @@ public class MarioA {
 
     public double getPosY() {
         return this.posY;
+    }
+
+    public int getTurno(){
+        return turno;
     }
 
     /**
