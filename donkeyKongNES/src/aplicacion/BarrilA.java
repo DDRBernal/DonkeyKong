@@ -7,13 +7,20 @@ public class BarrilA {
 
 
 
-    public BarrilA(){
-        posX=100;
-        posY=100;
+    public BarrilA(double x, double y){
+        posX=x;
+        posY=y;
+    }
+
+
+    public void muevase(){
+        setPosX(3);
     }
 
     public void setPosX(double x) {
-        posX = x;
+        posX += x;
+        posX = posX < 1 ? 1 : posX;
+        posX = posX > 544 ? 544 : posX;
     }
 
     public void setPosY(double y) {

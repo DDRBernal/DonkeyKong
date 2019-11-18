@@ -1,5 +1,7 @@
 package presentacion;
 
+import aplicacion.MarioA;
+
 public class Jugador extends personaje {
     protected Imagenes i = new Imagenes();
     protected int turno;
@@ -15,7 +17,9 @@ public class Jugador extends personaje {
 
 
     protected void start() {
-        if (turno==0){
+        if (MarioA.getSalto()!=-1){
+            frames.add(i.getImagen("marioMove2.png"));
+        } else if (turno==0){
             frames.add(i.getImagen("MarioStand.png"));
         } else if (turno%2!=0){
             frames.add(i.getImagen("marioMove1.png"));

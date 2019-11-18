@@ -147,7 +147,6 @@ public class DonkeyKongGUI extends JFrame {
             long startFrameTime = (long) (999999999 * Math.random());
             int Mx = (int) ((startFrameTime + System.nanoTime()) * Math.abs(-5) * 0.000000001) % 2;
             drawBarriles(g);
-            drawBarriles(g);
             drawVigas(g);
             drawDonkey(g);
             drawEscaleras(g);
@@ -162,133 +161,21 @@ public class DonkeyKongGUI extends JFrame {
          * @param g
          */
         private void drawVigas(Graphics g) {
-            int pox = 50;
-            int poy = 555 + 50;
-            for (int i = 0; i < 14; i++) {
-                Viga viga = new Viga(pox, poy);
-                viga.draw2(g, 0, 30, 20);
-                if (i >= 6) {
-                    poy -= 2;
-                }
-                pox += 30;
+            for (VigaA v: donkeyKongA.getVigas()){
+                Viga viga = new Viga(v.getX(),v.getY());
+                viga.draw2(g,0,30,20);
             }
-            pox = 50;
-            poy = 450 + 50;
-            for (int j = 0; j < 13; j++) {
-                Viga viga = new Viga(pox, poy);
-                viga.draw2(g, 0, 30, 20);
-                pox += 30;
-                poy += 2;
-            }
-            drawVigas2(g);
         }
 
         /**
          * @param g
          */
         private void drawEscaleras(Graphics g) {
-            int y = 582;
-            Escalera escalera = new Escalera(200, 590);
-            escalera.draw2(g, 0, 20, 15);
-            Escalera escalera11 = new Escalera(200, 530);
-            escalera11.draw2(g, 0, 20, 15);
-            for (int i = 0; i < 4; i++) {
-                if (i == 3) {
-                    y += 1;
-                }
-                Escalera escalera12 = new Escalera(380, y);
-                escalera12.draw2(g, 0, 20, 15);
-                y -= 15;
-            }
-            drawEscaleras2(g);
-        }
-
-        private void drawVigas2(Graphics g) {
-            int pox = 440;
-            int poy = 405;
-            for (int i = 0; i < 13; i++) {
-                Viga viga = new Viga(pox, poy);
-                viga.draw2(g, 0, 30, 20);
-                pox -= 30;
-                poy += 2;
-            }
-            drawVigas3(g);
-        }
-
-        private void drawEscaleras2(Graphics g) {
-            int y = 497;
-            for (int i = 0; i < 5; i++) {
-                Escalera escalera = new Escalera(230, y);
-                escalera.draw2(g, 0, 20, 15);
-                y -= 15;
-            }
-            y = 489;
-            for (int j = 0; j < 4; j++) {
-                Escalera escalera = new Escalera(110, y);
-                escalera.draw2(g, 0, 20, 15);
-                y -= 15;
-            }
-            drawEscaleras3(g);
-        }
-
-        private void drawVigas3(Graphics g) {
-            int pox = 50;
-            int poy = 315;
-            for (int i = 0; i < 13; i++) {
-                Viga viga = new Viga(pox, poy);
-                viga.draw2(g, 0, 30, 20);
-                pox += 30;
-                poy += 2;
-            }
-            pox = 440;
-            poy = 220;
-            for (int i = 0; i < 13; i++) {
-                Viga viga = new Viga(pox, poy);
-                viga.draw2(g, 0, 30, 20);
-                pox -= 30;
-                poy += 2;
-            }
-            pox = 50;
-            poy = 150;
-            for (int i = 0; i < 13; i++) {
-                Viga viga = new Viga(pox, poy);
-                viga.draw2(g, 0, 30, 20);
-                if (i >= 9) {
-                    poy += 2;
-                }
-                pox += 30;
-            }
-            pox = 230;
-            poy = 85;
-            for (int i = 0; i < 4; i++) {
-                Viga viga = new Viga(pox, poy);
-                viga.draw2(g, 0, 30, 20);
-                pox += 30;
+            for (EscaleraA e: donkeyKongA.getEscaleras()){
+                Escalera escalera = new Escalera(e.getX(),e.getY());
+                escalera.draw2(g,0,20,15);
             }
         }
-
-        private void drawEscaleras3(Graphics g) {
-            int y = 402;
-            Escalera escalera = new Escalera(170, 408);
-            escalera.draw2(g, 0, 20, 15);
-            Escalera escalera11 = new Escalera(170, 341);
-            escalera11.draw2(g, 0, 20, 15);
-            for (int i = 0; i < 5; i++) {
-                Escalera escalera1 = new Escalera(260, y);
-                escalera1.draw2(g, 0, 20, 15);
-                y -= 14;
-            }
-            Escalera escalera22 = new Escalera(350, 397);
-            escalera22.draw2(g, 0, 20, 15);
-            drawEscaleras4(g);
-        }
-
-        private void drawEscaleras4(Graphics g) {
-            int y = 10;
-            Escalera escalera = new Escalera(230, y);
-            escalera.draw2(g, 0, 20, 15);
-        }
-
 
         private void drawDonkey(Graphics g) {
             Donkey donkey = new Donkey(88, 80);
@@ -297,7 +184,7 @@ public class DonkeyKongGUI extends JFrame {
 
         private void drawBarriles(Graphics g) {
             for (int i = 0; i < 1; i++) {
-                Barril barril = new Barril(10, 10);
+                Barril barril = new Barril(donkeyKongA.getPosBarrilX(), donkeyKongA.getPosBarrilY());
                 barril.draw2(g, 0, 20, 20);
             }
         }
@@ -319,7 +206,8 @@ public class DonkeyKongGUI extends JFrame {
             long frameRate = 100;
             while (running) {
                 long startTime = System.currentTimeMillis();
-                //donkeyKongA.moverMario(1);
+                donkeyKongA.moverTodo();
+                donkeyKongA.marioSaltar();
                 repaint();
                 while (System.currentTimeMillis() - startTime < frameRate) {
                     try {

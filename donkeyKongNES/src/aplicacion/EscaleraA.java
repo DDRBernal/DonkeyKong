@@ -1,18 +1,15 @@
 package aplicacion;
 
-public class VigaA {
-    protected double posX;
-    protected double posY;
+public class EscaleraA {
+
+    private double posX;
+    private double posY;
 
 
 
-    public VigaA(double x, double y){
+    public EscaleraA(double x, double y){
         posX=x;
         posY=y;
-    }
-
-    public void muevase(){
-        setPosX(0.6);
     }
 
     public void setPosX(double x) {
@@ -22,7 +19,9 @@ public class VigaA {
     }
 
     public void setPosY(double y) {
-        posY = y;
+        posY += y;
+        posY = posY < 1 ? 1 : posY;
+        posY = posY > 700 ? 700 : posY;
     }
 
     public double getX() {
