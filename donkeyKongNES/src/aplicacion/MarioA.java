@@ -14,6 +14,7 @@ public class MarioA {
     private boolean estaSubiendo;
     private static int salto;
     private boolean noEstaSaltando;
+    private char sentido;
 
 
 
@@ -25,6 +26,7 @@ public class MarioA {
         turno=0;
         salto=-1;
         noEstaSaltando=true;
+        sentido='d';
     }
 
     public static int getSalto() {
@@ -49,6 +51,7 @@ public class MarioA {
         if (sentido=="derecha"){
             setPosX(0.6);
         } else{
+            this.sentido='i';
             setPosX(-0.6);
         }
     }
@@ -65,7 +68,7 @@ public class MarioA {
     }
 
     private void modifiqueTurno(){
-        if (turno<3) {
+        if (turno<4) {
             turno++;
         } else{
             turno=0;
@@ -121,11 +124,20 @@ public class MarioA {
         }
     }
 
+    public boolean impactado(VigaA viga){
+        double xViga = viga.getX();
+        double yViga = viga.getY();
+//        System.out.println(xViga+" "+yViga+" aa");
+//        System.out.println(posX+" "+posY+" bb");
+        return (posY>=yViga-35 && posY<=yViga+35) && (posX>=xViga-10 && posX<=xViga+10);
+
+    }
+
     public boolean impactado(EscaleraA escaleraA) {
         double xEscalera = escaleraA.getX();
         double yEscalera = escaleraA.getY();
 
-        return isLess(this.posX, xEscalera) && isLess(this.posY, yEscalera);
+        return (posX>=xEscalera-8 && posX<=xEscalera+8) && (posY>= yEscalera-20 && posY<=yEscalera+20);
     }
 
     private boolean isLess(double r1, double r2) {
@@ -148,5 +160,9 @@ public class MarioA {
 
     public boolean getnoEstaSaltando() {
         return noEstaSaltando;
+    }
+
+    public char getSentido() {
+        return sentido;
     }
 }

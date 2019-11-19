@@ -1,13 +1,13 @@
 package aplicacion;
 
-public class EscaleraA{
+public abstract class ObjetoA {
 
     private double posX;
     private double posY;
 
 
 
-    public EscaleraA(double x, double y){
+    public ObjetoA(double x, double y){
         posX=x;
         posY=y;
     }

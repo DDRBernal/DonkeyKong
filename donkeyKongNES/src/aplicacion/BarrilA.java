@@ -2,8 +2,9 @@ package aplicacion;
 
 public class BarrilA {
 
-    protected double posX;
-    protected double posY;
+    private double posX;
+    private double posY;
+    private static int turno;
 
 
 
@@ -15,6 +16,15 @@ public class BarrilA {
 
     public void muevase(){
         setPosX(3);
+        modifiqueTurno();
+    }
+
+    private void modifiqueTurno(){
+        if (turno<4) {
+            turno++;
+        } else{
+            turno=0;
+        }
     }
 
     public void setPosX(double x) {
@@ -33,6 +43,10 @@ public class BarrilA {
 
     public double getY() {
         return posY;
+    }
+
+    public static int getTurno(){
+        return turno;
     }
 
 

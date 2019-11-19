@@ -145,7 +145,7 @@ public class DonkeyKong {
 
     private void prepareVigas() {
         int pox = 50;
-        int poy = 555 + 50;
+        int poy = 605;
         for (int i = 0; i < 14; i++) {
             VigaA viga = new VigaA(pox, poy);
             vigas.add(viga);
@@ -155,7 +155,7 @@ public class DonkeyKong {
             pox += 30;
         }
         pox = 50;
-        poy = 450 + 50;
+        poy = 500;
         for (int j = 0; j < 13; j++) {
             VigaA viga = new VigaA(pox, poy);
             vigas.add(viga);
@@ -166,9 +166,30 @@ public class DonkeyKong {
 
 
     public void marioSubir(){
+        //System.out.println(mario.getPosX()+" "+mario.getPosY()+" sss");
         for (EscaleraA e : escaleras) {
-            if (mario.impactado(e) && alturaEscaleras(e)>2) {
+            //System.out.println(e.getX()+" "+e.getY()+" aaa");
+            if (mario.impactado(e) /*&& alturaEscaleras(e)>2*/) {
                 System.out.println(2222);
+            }
+        }
+    }
+
+    public void marioImpactoVigas(){
+        for (VigaA v: vigas){
+            if (mario.impactado(v)){
+                try{
+                    if (vigas.get(vigas.indexOf(v)).getY()<vigas.get(vigas.indexOf(v)-1).getY() && mario.getSentido()=='d'){
+                        mario.setPosY(-0.6);
+                    } else if (vigas.get(vigas.indexOf(v)).getY()<vigas.get(vigas.indexOf(v)+1).getY() && mario.getSentido()=='i'){
+                        mario.setPosY(0.6);
+                    }
+//                    else if (vigas.get(vigas.indexOf(v)).getY()>vigas.get(vigas.indexOf(v)+1).getY()){
+//                        mario.setPosY(0.6);
+//                    }
+                }
+                catch (ArrayIndexOutOfBoundsException e){ }
+
             }
         }
     }
@@ -193,14 +214,16 @@ public class DonkeyKong {
     }
 
     public void moverMario(Integer key){
-        //marioSubir();
+        marioSubir();
+        marioImpactoVigas();
         if (key==38){
-            marioSubir();
+            //marioSubir();
             if (mario.getnoEstaSaltando()) {
                 mario.modifiqueSalto();
             }
         }
         if (key==39){
+            //System.out.println(mario.getPosX()+" "+mario.getPosY());
             mario.mueva("derecha");
         } else if (key==37){
             mario.mueva("izquierda");
