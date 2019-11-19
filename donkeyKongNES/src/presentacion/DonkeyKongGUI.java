@@ -178,7 +178,7 @@ public class DonkeyKongGUI extends JFrame {
         }
 
         private void drawDonkey(Graphics g) {
-            Donkey donkey = new Donkey(88, 80);
+            Donkey donkey = new Donkey(donkeyKongA.getPosDonkeyX(), donkeyKongA.getPosDonkeyY(),donkeyKongA.getTurnoDonkey());
             donkey.draw2(g, 0, 70, 70);
         }
 

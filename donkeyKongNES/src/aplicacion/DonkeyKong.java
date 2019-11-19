@@ -11,12 +11,14 @@ public class DonkeyKong {
     private ArrayList<Jugador> jugadores;
     private ArrayList<VigaA> vigas;
     private ArrayList<EscaleraA> escaleras;
+    private DonkeyA donkeyA;
 
 
     public DonkeyKong(int numJugadores){
         barriles = new ArrayList<>();
         jugadores = new ArrayList<>();
         mario = new MarioA(100,570);
+        donkeyA = new DonkeyA(88,80);
         vigas = new ArrayList<>();
         escaleras = new ArrayList<>();
         prepareElementos(numJugadores);
@@ -237,6 +239,7 @@ public class DonkeyKong {
     }
 
     public void moverTodo(){
+        donkeyA.modifiqueTurno();
         barriles.get(0).muevase();
     }
 
@@ -247,6 +250,15 @@ public class DonkeyKong {
     public double getPosMarioY(){
         return mario.getPosY();
     }
+
+    public double getPosDonkeyX() {
+        return donkeyA.getPosX();
+    }
+
+    public double getPosDonkeyY(){
+        return donkeyA.getPosY();
+    }
+
 
     public double getPosBarrilX(){
         return barriles.get(0).getX();
@@ -269,5 +281,7 @@ public class DonkeyKong {
     }
 
 
-
+    public int getTurnoDonkey() {
+        return donkeyA.getTurno();
+    }
 }
