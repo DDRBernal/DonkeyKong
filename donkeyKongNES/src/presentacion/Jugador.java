@@ -29,7 +29,7 @@ public class Jugador extends personaje {
         } else if (turno==3){
             frames.add(i.getImagen("marioMove3.png"));
         } else if (turno==4){
-            frames.add(i.getImagen("marioMove3.png"));
+            frames.add(i.getImagen("marioMove2.png"));
         }
     }
 
