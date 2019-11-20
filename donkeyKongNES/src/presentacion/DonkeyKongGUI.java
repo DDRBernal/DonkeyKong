@@ -209,12 +209,12 @@ public class DonkeyKongGUI extends JFrame {
                 donkeyKongA.moverTodo();
                 donkeyKongA.marioSaltar();
                 repaint();
-                while (System.currentTimeMillis() - startTime < frameRate) {
+
                     try {
-                        Thread.sleep(50);
+                        Thread.sleep(35);
                     } catch (InterruptedException ex) {
                     }
-                }
+
             }
 
         }

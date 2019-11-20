@@ -49,10 +49,10 @@ public class MarioA {
 
     public void mueva(String sentido){
         if (sentido=="derecha"){
-            setPosX(0.6);
+            setPosX(1.2);
         } else{
             this.sentido='i';
-            setPosX(-0.6);
+            setPosX(-1.2);
         }
     }
 
@@ -85,9 +85,9 @@ public class MarioA {
             noEstaSaltando=true;
         } if (salto!=-1) {
             if (salto < 15) {
-                setPosY(-1.1);
+                setPosY(-1.5);
             } else {
-                setPosY(1.1);
+                setPosY(1.5);
             }
             salto++;
         }
