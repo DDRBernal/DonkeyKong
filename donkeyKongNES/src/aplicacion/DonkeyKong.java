@@ -1,4 +1,5 @@
 package aplicacion;
+import presentacion.Barril;
 import presentacion.Escalera;
 import presentacion.Viga;
 
@@ -12,6 +13,7 @@ public class DonkeyKong {
     private ArrayList<VigaA> vigas;
     private ArrayList<EscaleraA> escaleras;
     private DonkeyA donkeyA;
+    private int turnoBarril;
 
 
     public DonkeyKong(int numJugadores){
@@ -22,12 +24,11 @@ public class DonkeyKong {
         vigas = new ArrayList<>();
         escaleras = new ArrayList<>();
         prepareElementos(numJugadores);
+        barriles.add(new BarrilA(160,130));
+        turnoBarril=0;
     }
 
     public void prepareElementos(int numJugadores) {
-        for (int i=0; i<10; i++){
-            barriles.add(new BarrilA(160,130));
-        }
         prepareVigas();
         prepareVigas2();
         prepareVigas3();
@@ -81,16 +82,48 @@ public class DonkeyKong {
             EscaleraA escalera1 = new EscaleraA(260, y);
             escaleras.add(escalera1);
             y -= 14;
+        } y=397;
+        for (int i =0; i<4; i++) {
+            EscaleraA escalera22 = new EscaleraA(350, y);
+            escaleras.add(escalera22);
+            y-=14;
         }
-        EscaleraA escalera22 = new EscaleraA(350, 397);
-        escaleras.add(escalera22);
         prepareEscaleras4();
     }
 
     private void prepareEscaleras4() {
-        int y = 10;
-        EscaleraA escalera = new EscaleraA(230, y);
-        escaleras.add(escalera);
+        int y = 318;
+        EscaleraA escalera0 = new EscaleraA(321, y);
+        escaleras.add(escalera0);
+        EscaleraA escalera1 = new EscaleraA(321, y-72);
+        escaleras.add(escalera1);
+        for (int i=0; i<5; i++) {
+            EscaleraA escaleraA = new EscaleraA(201,y-8);
+            escaleras.add(escaleraA);
+            y-=14;
+        }
+        for (int i=0; i<4; i++){
+            EscaleraA escaleraA = new EscaleraA(111,y+56);
+            escaleras.add(escaleraA);
+            y-=14;
+        }
+        prepareEscaleras5();
+    }
+
+    private void prepareEscaleras5(){
+        int y=218;
+        for (int i=0; i<2; i++) {
+            EscaleraA escaleraA = new EscaleraA(261, y);
+            escaleras.add(escaleraA);
+            y-=50;
+        } y=208;
+        for (int i=0; i<4; i++){
+            EscaleraA escaleraA = new EscaleraA(411, y);
+            escaleras.add(escaleraA);
+            if (i<2){y-=14;}
+            else{y-=8;}
+        }
+
     }
 
     private void prepareVigas4(){
@@ -239,8 +272,49 @@ public class DonkeyKong {
     }
 
     public void moverTodo(){
+        modifiqueBarril();
         donkeyA.modifiqueTurno();
-        barriles.get(0).muevase();
+        for (BarrilA b : barriles){
+            choqueBarrilViga(b);
+        }
+        if (donkeyA.getLanzeBarril()){
+            barriles.add(new BarrilA(160,130));
+        }
+    }
+
+    private void choqueBarrilViga(BarrilA b){
+        int moverse=0;
+        for (VigaA v: vigas){
+            if ((b.getX()>=v.getX() && b.getX()<=v.getX()+30)) {
+                if (b.getY() == v.getY() - 22) {
+                    b.setPosY(2);
+                    moverse = 0;
+                    break;
+                } else if (b.getY() == v.getY() - 20){
+                    moverse=0;
+                    break;
+                }else{
+                    moverse=2;
+                }
+            }
+            //System.out.println(barriles.get(0).getX()+" "+v.getX()+" "+barriles.get(0).getY()+" "+v.getY());
+        }
+
+        if (moverse==2){
+            b.setPosY(1);
+            b.setSentido();
+        } else if (moverse==0){
+            b.muevase(b.getSentido());
+            b.setArray();
+        }
+    }
+
+    private void modifiqueBarril(){
+        if (turnoBarril<30){
+            turnoBarril++;
+        }else{
+            turnoBarril=0;
+        }
     }
 
     public double getPosMarioX(){
@@ -260,12 +334,16 @@ public class DonkeyKong {
     }
 
 
-    public double getPosBarrilX(){
-        return barriles.get(0).getX();
+    public double getPosBarrilX(int i){
+        return barriles.get(i).getX();
     }
 
-    public double getPosBarrilY(){
-        return barriles.get(0).getY();
+    public double getPosBarrilY(int i){
+        return barriles.get(i).getY();
+    }
+
+    public ArrayList<BarrilA> getBarriles(){
+        return barriles;
     }
 
     public int getTurnoMario(){
@@ -280,8 +358,11 @@ public class DonkeyKong {
         return escaleras;
     }
 
-
     public int getTurnoDonkey() {
         return donkeyA.getTurno();
+    }
+
+    public boolean getCambiarBarril(){
+        return turnoBarril<15;
     }
 }

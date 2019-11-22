@@ -1,21 +1,27 @@
 package aplicacion;
 
+import java.util.ArrayList;
+
 public class BarrilA {
 
     private double posX;
     private double posY;
     private static int turno;
+    private int sentido;
+    private ArrayList<Integer> array;
 
 
 
     public BarrilA(double x, double y){
         posX=x;
         posY=y;
+        sentido=3;
+        array = new ArrayList<>();
     }
 
 
-    public void muevase(){
-        setPosX(3);
+    public void muevase(int numero){
+        setPosX(numero);
         modifiqueTurno();
     }
 
@@ -34,7 +40,7 @@ public class BarrilA {
     }
 
     public void setPosY(double y) {
-        posY = y;
+        posY += y;
     }
 
     public double getX() {
@@ -47,6 +53,19 @@ public class BarrilA {
 
     public static int getTurno(){
         return turno;
+    }
+
+    public int getSentido(){
+        return sentido;
+    }
+
+    public void setSentido(){
+        if (array.size()==0)sentido=-sentido;
+        array.add(1);
+    }
+
+    public void setArray(){
+        array.clear();
     }
 
 

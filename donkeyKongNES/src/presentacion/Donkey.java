@@ -19,18 +19,18 @@ public class Donkey extends Objeto {
     }
 
     public void carga(){
-        if (turno==0) {
+        if (turno>=0 && turno<10) {
             frames2.add(i.getImagen("donkeyKong.png"));
-        } else if (turno==1){
+        } else if (turno>=10 && turno<20){
             frames2.add(i.getImagen("donkeyKong1.png"));
-        } else if (turno==2){
+        } else if (turno>=20 && turno<30){
             frames2.add(i.getImagen("donkeyKong2.png"));
-        } else if (turno==3){
+        } else if (turno>=30 && turno<60){
             frames2.add(i.getImagen("donkeyKong3.png"));
-        } else if (turno==4){
+        } else if (turno>=60 && turno<93){
             frames2.add(i.getImagen("donkeyKong4.png"));
-        } else if (turno==5){
-            frames2.add(i.getImagen("donkeyKong4.png"));
+        } else{
+            frames2.add(i.getImagen("donkeyKong.png"));
         }
     }
 

@@ -14,7 +14,7 @@ public class MarioA {
     private boolean estaSubiendo;
     private static int salto;
     private boolean noEstaSaltando;
-    private char sentido;
+    private static char sentido;
 
 
 
@@ -50,6 +50,7 @@ public class MarioA {
     public void mueva(String sentido){
         if (sentido=="derecha"){
             setPosX(1.2);
+            this.sentido='d';
         } else{
             this.sentido='i';
             setPosX(-1.2);
@@ -60,8 +61,8 @@ public class MarioA {
         if (x!=-9999) {
             modifiqueTurno();
             posX += x;
-            posX = posX < 1 ? 1 : posX;
-            posX = posX > 544 ? 544 : posX;
+            posX = posX < 45 ? 45 : posX;
+            posX = posX > 415 ? 415 : posX;
         }else{
             turno=0;
         }
@@ -157,12 +158,11 @@ public class MarioA {
         }
     }
 
-
     public boolean getnoEstaSaltando() {
         return noEstaSaltando;
     }
 
-    public char getSentido() {
+    public static char getSentido() {
         return sentido;
     }
 }

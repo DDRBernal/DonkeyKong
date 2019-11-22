@@ -150,11 +150,22 @@ public class DonkeyKongGUI extends JFrame {
             drawVigas(g);
             drawDonkey(g);
             drawEscaleras(g);
+            drawBarril(g);
             jugador = new Jugador(donkeyKongA.getPosMarioX(), donkeyKongA.getPosMarioY(),donkeyKongA.getTurnoMario());
             jugador.draw(g, 0, 30, 35);
         }
 
 
+        private void drawBarril(Graphics g){
+            ArrayList<BufferedImage> frames2 = new ArrayList<>();
+            if (donkeyKongA.getCambiarBarril()){
+                frames2.add(i.getImagen("oil1.png"));
+                g.drawImage(frames2.get(0), 60, 557, 30, 50, null);
+            } else{
+                frames2.add(i.getImagen("oil2.png"));
+                g.drawImage(frames2.get(0),  60,  557, 30, 50, null);
+            }
+        }
         /**
          * Dibuja las vigas
          *
@@ -183,8 +194,8 @@ public class DonkeyKongGUI extends JFrame {
         }
 
         private void drawBarriles(Graphics g) {
-            for (int i = 0; i < 1; i++) {
-                Barril barril = new Barril(donkeyKongA.getPosBarrilX(), donkeyKongA.getPosBarrilY());
+            for (int i = 0; i < donkeyKongA.getBarriles().size(); i++) {
+                Barril barril = new Barril(donkeyKongA.getPosBarrilX(i), donkeyKongA.getPosBarrilY(i));
                 barril.draw2(g, 0, 20, 20);
             }
         }

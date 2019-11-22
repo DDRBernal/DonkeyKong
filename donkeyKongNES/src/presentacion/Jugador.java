@@ -16,21 +16,48 @@ public class Jugador extends personaje {
     }
 
 
-    protected void start() {
-
+    private void start() {
         if (MarioA.getSalto()!=-1){
-            frames.add(i.getImagen("marioJump.png"));
+            if (MarioA.getSentido()=='d')
+                frames.add(i.getImagen("marioJump.png"));
+            else{
+                frames.add(i.getImagen("imarioJump.png"));
+            }
         } else if (turno==0){
-            frames.add(i.getImagen("MarioStand.png"));
+            if (MarioA.getSentido()=='d')
+                frames.add(i.getImagen("MarioStand.png"));
+            else{
+                frames.add(i.getImagen("iMarioStand.png"));
+            }
         } else if (turno==1){
-            frames.add(i.getImagen("marioMove1.png"));
-        } else if (turno==2){
-            frames.add(i.getImagen("marioMove2.png"));
-        } else if (turno==3){
-            frames.add(i.getImagen("marioMove3.png"));
-        } else if (turno==4){
-            frames.add(i.getImagen("marioMove2.png"));
-        }
+            if (MarioA.getSentido()=='d')
+                frames.add(i.getImagen("marioMove1.png"));
+            else{
+                frames.add(i.getImagen("imarioMove1.png"));
+            }
+        }start2();
+
     }
 
+    private void start2(){
+        if (turno==2){
+            if (MarioA.getSentido()=='d')
+                frames.add(i.getImagen("marioMove2.png"));
+            else{
+                frames.add(i.getImagen("imarioMove2.png"));
+            }
+        } else if (turno==3){
+            if (MarioA.getSentido()=='d')
+                frames.add(i.getImagen("marioMove3.png"));
+            else{
+                frames.add(i.getImagen("imarioMove3.png"));
+            }
+        } else if (turno==4){
+            if (MarioA.getSentido()=='d')
+                frames.add(i.getImagen("marioMove2.png"));
+            else{
+                frames.add(i.getImagen("imarioMove2.png"));
+            }
+        }
+    }
 }

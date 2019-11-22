@@ -32,4 +32,5 @@ public class VigaA {
     public double getY() {
         return posY;
     }
+
 }
