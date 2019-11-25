@@ -17,6 +17,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.*;
 
 
 public class DonkeyKongGUI extends JFrame {
@@ -80,6 +83,7 @@ public class DonkeyKongGUI extends JFrame {
         button.setBorderPainted(false);
     }
 
+
     /**
      * prepara las acciones para salir, abrir, salga, cambiarColor
      */
@@ -90,30 +94,31 @@ public class DonkeyKongGUI extends JFrame {
                 salga();
             }
         });
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                pressed.add(e.getKeyCode());
-                if (pressed.size()>1){
-                    for (Integer num: pressed){
-                        donkeyKongA.moverMario(num);
-
-                    }
-                } else{
-                    donkeyKongA.moverMario(e.getKeyCode());
-
-                }
-            }
-            @Override
-            public void keyReleased(KeyEvent e) {
-                pressed.remove(e.getKeyCode());
-            }
-
-            @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
-        });
+        addKeyListener(new EventoTeclado());
+//        addKeyListener(new KeyAdapter() {
+//            @Override
+//            public void keyPressed(KeyEvent e) {
+//                pressed.add(e.getKeyCode());
+//                if (pressed.size()>1){
+//                    for (Integer num: pressed){
+//                        donkeyKongA.moverMario(num);
+//
+//                    }
+//                } else{
+//                    donkeyKongA.moverMario(e.getKeyCode());
+//
+//                }
+//            }
+//            @Override
+//            public void keyReleased(KeyEvent e) {
+//                pressed.remove(e.getKeyCode());
+//            }
+//
+//            @Override
+//            public void keyTyped(KeyEvent e) {
+//
+//            }
+//        });
     }
 
     /**
@@ -182,9 +187,13 @@ public class DonkeyKongGUI extends JFrame {
          * @param g
          */
         private void drawEscaleras(Graphics g) {
+            int conta=0;
             for (EscaleraA e: donkeyKongA.getEscaleras()){
-                Escalera escalera = new Escalera(e.getX(),e.getY());
-                escalera.draw2(g,0,20,15);
+                if (donkeyKongA.getPosiciones().indexOf(conta)==-1){
+                    Escalera escalera = new Escalera(e.getX(),e.getY());
+                    escalera.draw2(g, 0, 20, 15);
+                }
+                conta++;
             }
         }
 
@@ -220,7 +229,6 @@ public class DonkeyKongGUI extends JFrame {
                 donkeyKongA.moverTodo();
                 donkeyKongA.marioSaltar();
                 repaint();
-
                     try {
                         Thread.sleep(35);
                     } catch (InterruptedException ex) {
@@ -238,9 +246,12 @@ public class DonkeyKongGUI extends JFrame {
                 return;
             }
             running = true;
+
             Thread thread = new Thread(new MainLoop());
             thread.start();
         }
+
+
 
         /**
          * Fin del juego

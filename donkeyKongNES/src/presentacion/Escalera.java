@@ -1,5 +1,7 @@
 package presentacion;
 
+import aplicacion.EscaleraA;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;

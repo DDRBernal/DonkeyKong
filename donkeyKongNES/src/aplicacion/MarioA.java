@@ -2,7 +2,9 @@ package aplicacion;
 
 
 import presentacion.Escalera;
-
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.util.*;
 
 public class MarioA {
@@ -11,7 +13,7 @@ public class MarioA {
     private int vida;
     private boolean estaMuerto;
     private int turno;
-    private boolean estaSubiendo;
+    private static boolean estaSubiendo;
     private static int salto;
     private boolean noEstaSaltando;
     private static char sentido;
@@ -27,16 +29,9 @@ public class MarioA {
         salto=-1;
         noEstaSaltando=true;
         sentido='d';
+        estaSubiendo=false;
     }
 
-    public static int getSalto() {
-        return salto;
-    }
-
-
-    public int getVida() {
-        return vida;
-    }
 
     /**
      * Retorna si esta o no vivo
@@ -48,7 +43,11 @@ public class MarioA {
     }
 
     public void mueva(String sentido){
-        if (sentido=="derecha"){
+        if (sentido.equals("arriba")){
+            setPosY(-1.2);
+            modifiqueTurno();
+        }
+        else if (sentido.equals("derecha")){
             setPosX(1.2);
             this.sentido='d';
         } else{
@@ -86,9 +85,9 @@ public class MarioA {
             noEstaSaltando=true;
         } if (salto!=-1) {
             if (salto < 15) {
-                setPosY(-1.5);
+                setPosY(-1.7);
             } else {
-                setPosY(1.5);
+                setPosY(1.7);
             }
             salto++;
         }
@@ -99,17 +98,11 @@ public class MarioA {
         noEstaSaltando=false;
     }
 
-    public double getPosX() {
-        return this.posX;
+    public void suba(boolean saltando){
+        estaSubiendo=saltando;
     }
 
-    public double getPosY() {
-        return this.posY;
-    }
 
-    public int getTurno(){
-        return turno;
-    }
 
     /**
      * Revisa si es o no impactado por un barril
@@ -119,7 +112,6 @@ public class MarioA {
     public void impactado(BarrilA barril) {
         double xBarril = barril.getX();
         double yBarril = barril.getY();
-
         if (isLess(this.posX, xBarril) && isLess(this.posY, yBarril)) {
             update();
         }
@@ -128,16 +120,12 @@ public class MarioA {
     public boolean impactado(VigaA viga){
         double xViga = viga.getX();
         double yViga = viga.getY();
-//        System.out.println(xViga+" "+yViga+" aa");
-//        System.out.println(posX+" "+posY+" bb");
-        return (posY>=yViga-35 && posY<=yViga+35) && (posX>=xViga-10 && posX<=xViga+10);
-
+        return (posY>=yViga-35 && posY<=yViga+35) && (posX>=xViga-11 && posX<=xViga+11);
     }
 
     public boolean impactado(EscaleraA escaleraA) {
         double xEscalera = escaleraA.getX();
         double yEscalera = escaleraA.getY();
-
         return (posX>=xEscalera-8 && posX<=xEscalera+8) && (posY>= yEscalera-20 && posY<=yEscalera+20);
     }
 
@@ -165,4 +153,29 @@ public class MarioA {
     public static char getSentido() {
         return sentido;
     }
+
+    public double getPosX() {
+        return this.posX;
+    }
+
+    public double getPosY() {
+        return this.posY;
+    }
+
+    public int getTurno(){
+        return turno;
+    }
+
+    public static int getSalto() {
+        return salto;
+    }
+
+    public int getVida() {
+        return vida;
+    }
+
+    public static boolean getEstaSubiendo(){
+        return estaSubiendo;
+    }
+
 }

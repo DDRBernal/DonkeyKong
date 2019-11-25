@@ -14,6 +14,7 @@ public class DonkeyKong {
     private ArrayList<EscaleraA> escaleras;
     private DonkeyA donkeyA;
     private int turnoBarril;
+    private ArrayList<Integer> posiciones;
 
 
     public DonkeyKong(int numJugadores){
@@ -23,6 +24,7 @@ public class DonkeyKong {
         donkeyA = new DonkeyA(88,80);
         vigas = new ArrayList<>();
         escaleras = new ArrayList<>();
+        posiciones = new ArrayList<>();
         prepareElementos(numJugadores);
         barriles.add(new BarrilA(160,130));
         turnoBarril=0;
@@ -53,6 +55,9 @@ public class DonkeyKong {
             escaleras.add(escalera12);
             y -= 15;
         }
+        EscaleraA escaleraN = new EscaleraA(380, y);
+        escaleras.add(escaleraN);
+        posiciones.add(escaleras.size()-1);
         prepareEscaleras2();
     }
 
@@ -63,12 +68,16 @@ public class DonkeyKong {
             escaleras.add(escalera);
             y -= 15;
         }
+        EscaleraA escaleraN = new EscaleraA(230, y);
+        escaleras.add(escaleraN);
+        posiciones.add(escaleras.size()-1);
         y = 489;
-        for (int j = 0; j < 4; j++) {
+        for (int j = 0; j < 5; j++) {
             EscaleraA escalera = new EscaleraA(110, y);
             escaleras.add(escalera);
             y -= 15;
         }
+        posiciones.add(escaleras.size()-1);
         prepareEscaleras3();
     }
 
@@ -82,12 +91,18 @@ public class DonkeyKong {
             EscaleraA escalera1 = new EscaleraA(260, y);
             escaleras.add(escalera1);
             y -= 14;
-        } y=397;
+        }EscaleraA escaleraN = new EscaleraA(260, y);
+        escaleras.add(escaleraN);
+        posiciones.add(escaleras.size()-1);
+        y=397;
         for (int i =0; i<4; i++) {
             EscaleraA escalera22 = new EscaleraA(350, y);
             escaleras.add(escalera22);
             y-=14;
         }
+        EscaleraA escaleraN1 = new EscaleraA(350, y);
+        escaleras.add(escaleraN1);
+        posiciones.add(escaleras.size()-1);
         prepareEscaleras4();
     }
 
@@ -101,12 +116,16 @@ public class DonkeyKong {
             EscaleraA escaleraA = new EscaleraA(201,y-8);
             escaleras.add(escaleraA);
             y-=14;
-        }
+        }EscaleraA escaleraN1 = new EscaleraA(201, y-8);
+        escaleras.add(escaleraN1);
+        posiciones.add(escaleras.size()-1);
         for (int i=0; i<4; i++){
             EscaleraA escaleraA = new EscaleraA(111,y+56);
             escaleras.add(escaleraA);
             y-=14;
-        }
+        }EscaleraA escaleraN = new EscaleraA(111, y+56);
+        escaleras.add(escaleraN);
+        posiciones.add(escaleras.size()-1);
         prepareEscaleras5();
     }
 
@@ -163,7 +182,6 @@ public class DonkeyKong {
             pox -= 30;
             poy += 2;
         }
-
     }
 
     private void prepareVigas2() {
@@ -201,32 +219,28 @@ public class DonkeyKong {
 
 
     public void marioSubir(){
-        //System.out.println(mario.getPosX()+" "+mario.getPosY()+" sss");
         for (EscaleraA e : escaleras) {
-            //System.out.println(e.getX()+" "+e.getY()+" aaa");
-            if (mario.impactado(e) /*&& alturaEscaleras(e)>2*/) {
-                System.out.println(2222);
+            if (mario.impactado(e)) {
+                mario.suba(true);
             }
         }
     }
 
-    public void marioImpactoVigas(){
-        for (VigaA v: vigas){
-            if (mario.impactado(v)){
+    public boolean marioImpactoVigas(){
+        boolean choco=false;
+        for (int i=0; i<vigas.size();i++){
+            if (mario.impactado(vigas.get(i))){
+                choco=true;
                 try{
-                    if (vigas.get(vigas.indexOf(v)).getY()<vigas.get(vigas.indexOf(v)-1).getY() && mario.getSentido()=='d'){
+                    if (Math.abs(vigas.get(i).getY()-mario.getPosY())<35){
                         mario.setPosY(-0.6);
-                    } else if (vigas.get(vigas.indexOf(v)).getY()<vigas.get(vigas.indexOf(v)+1).getY() && mario.getSentido()=='i'){
-                        mario.setPosY(0.6);
                     }
-//                    else if (vigas.get(vigas.indexOf(v)).getY()>vigas.get(vigas.indexOf(v)+1).getY()){
-//                        mario.setPosY(0.6);
-//                    }
                 }
                 catch (ArrayIndexOutOfBoundsException e){ }
 
             }
         }
+        return choco;
     }
 
 
@@ -242,29 +256,38 @@ public class DonkeyKong {
                 break;
             }
         }
-//        for (Double d: posYs){
-//            suma+=d;
-//        }
         return posYs.size();
     }
 
     public void moverMario(Integer key){
-        marioSubir();
-        marioImpactoVigas();
-        if (key==38){
-            //marioSubir();
-            if (mario.getnoEstaSaltando()) {
+        //marioSubir();
+        if (!marioImpactoVigas()){
+            gravedadMario();
+        }
+        if (key==38 || EventoTeclado.isUp()){
+            marioSubir();
+            if (mario.getEstaSubiendo()){
+                mario.mueva("arriba");
+            }
+            else if (mario.getnoEstaSaltando()) {
                 mario.modifiqueSalto();
+                mario.suba(false);
             }
         }
-        if (key==39){
-            //System.out.println(mario.getPosX()+" "+mario.getPosY());
+        else if (key==39 || EventoTeclado.right){
+            mario.suba(false);
             mario.mueva("derecha");
-        } else if (key==37){
+        } else if (key==37 || EventoTeclado.left){
             mario.mueva("izquierda");
+            mario.suba(false);
         } else{
             mario.setPosX(-9999);
+            mario.suba(false);
         }
+    }
+
+    private void gravedadMario() {
+        mario.setPosY(0.2);
     }
 
     public void marioSaltar() {
@@ -272,6 +295,7 @@ public class DonkeyKong {
     }
 
     public void moverTodo(){
+        moverMario(0);
         modifiqueBarril();
         donkeyA.modifiqueTurno();
         for (BarrilA b : barriles){
@@ -297,9 +321,7 @@ public class DonkeyKong {
                     moverse=2;
                 }
             }
-            //System.out.println(barriles.get(0).getX()+" "+v.getX()+" "+barriles.get(0).getY()+" "+v.getY());
         }
-
         if (moverse==2){
             b.setPosY(1);
             b.setSentido();
@@ -364,5 +386,9 @@ public class DonkeyKong {
 
     public boolean getCambiarBarril(){
         return turnoBarril<15;
+    }
+
+    public ArrayList<Integer> getPosiciones(){
+        return posiciones;
     }
 }

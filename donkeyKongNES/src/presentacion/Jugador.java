@@ -17,7 +17,14 @@ public class Jugador extends personaje {
 
 
     private void start() {
-        if (MarioA.getSalto()!=-1){
+        if (MarioA.getEstaSubiendo()){
+            if (turno%2==0) {
+                frames.add(i.getImagen("marioSubiendo1.png"));
+            } else{
+                frames.add(i.getImagen("marioSubiendo2.png"));
+            }
+        }
+        else if (MarioA.getSalto()!=-1){
             if (MarioA.getSentido()=='d')
                 frames.add(i.getImagen("marioJump.png"));
             else{
