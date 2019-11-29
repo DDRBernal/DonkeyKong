@@ -11,8 +11,8 @@ public class MarioA {
     private boolean estado;
     private double posX,posY;
     private int vida;
-    private boolean estaMuerto;
-    private int turno;
+    private static boolean estaMuerto;
+    private int turno,turnoMuerto;
     private static boolean estaSubiendo;
     private static int salto;
     private boolean noEstaSaltando;
@@ -26,6 +26,7 @@ public class MarioA {
         this.vida = 10;
         this.estaMuerto = false;
         turno=0;
+        turnoMuerto=0;
         salto=-1;
         noEstaSaltando=true;
         sentido='d';
@@ -38,12 +39,15 @@ public class MarioA {
      *
      * @return si esta o no vivo
      */
-    public boolean isVivo() {
-        return !(this.estaMuerto);
+    public static boolean isVivo() {
+        return !(estaMuerto);
     }
 
     public void mueva(String sentido){
-        if (sentido.equals("arriba")){
+        if (sentido.equals("N")){
+            modifiqueTurno2();
+        }
+        else if (sentido.equals("arriba")){
             setPosY(-1.2);
             modifiqueTurno();
         }
@@ -62,7 +66,7 @@ public class MarioA {
             posX += x;
             posX = posX < 45 ? 45 : posX;
             posX = posX > 415 ? 415 : posX;
-        }else{
+        }else if (isVivo()){
             turno=0;
         }
     }
@@ -72,6 +76,12 @@ public class MarioA {
             turno++;
         } else{
             turno=0;
+        }
+    }
+
+    public void modifiqueTurno2(){
+        if (turno<100){
+            turno++;
         }
     }
 
@@ -103,18 +113,15 @@ public class MarioA {
     }
 
 
-
     /**
      * Revisa si es o no impactado por un barril
      *
      * @param  barril
      */
-    public void impactado(BarrilA barril) {
+    public boolean impactado(BarrilA barril) {
         double xBarril = barril.getX();
-        double yBarril = barril.getY();
-        if (isLess(this.posX, xBarril) && isLess(this.posY, yBarril)) {
-            update();
-        }
+        double yBarril = barril.getY()-15;
+        return (Math.abs(posY-yBarril)<=5) && (Math.abs(posX-xBarril)<=5);
     }
 
     public boolean impactado(VigaA viga){
@@ -129,22 +136,26 @@ public class MarioA {
         return (posX>=xEscalera-8 && posX<=xEscalera+8) && (posY>= yEscalera-20 && posY<=yEscalera+20);
     }
 
-    private boolean isLess(double r1, double r2) {
-        return (r1 <= r2 && r2 <= (r1 + 20));
+    public void reinicie(){
+        posX=100;
+        posY=570;
     }
 
 
     /**
-     * Actualizo la vida por el dano de una bala
+     * Actualizo la vida por el dano de un barril
      *
      * @return
      */
-    public void update() {
-        vida --;
-        if (vida == 0) {
-            estaMuerto = true;
+    public void Murio() {
+        turno=-10;
+        estaMuerto=true;
+        vida--;
+        if (vida==0){
+            estaMuerto=true;
         }
     }
+
 
     public boolean getnoEstaSaltando() {
         return noEstaSaltando;
@@ -178,4 +189,9 @@ public class MarioA {
         return estaSubiendo;
     }
 
+    public void Reviva() {
+        sentido='d';
+        turno=0;
+        estaMuerto=false;
+    }
 }

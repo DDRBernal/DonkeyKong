@@ -67,10 +67,4 @@ public class BarrilA {
     public void setArray(){
         array.clear();
     }
-
-
-
-
-
-
 }

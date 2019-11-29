@@ -226,6 +226,17 @@ public class DonkeyKong {
         }
     }
 
+    public boolean marioImpactoBarril(){
+        boolean choco=false;
+        for (BarrilA b : barriles){
+            if (mario.impactado(b)){
+                choco=true;
+                mario.Murio();
+            }
+        }
+        return choco;
+    }
+
     public boolean marioImpactoVigas(){
         boolean choco=false;
         for (int i=0; i<vigas.size();i++){
@@ -237,7 +248,6 @@ public class DonkeyKong {
                     }
                 }
                 catch (ArrayIndexOutOfBoundsException e){ }
-
             }
         }
         return choco;
@@ -260,8 +270,10 @@ public class DonkeyKong {
     }
 
     public void moverMario(Integer key){
-        //marioSubir();
-        if (!marioImpactoVigas()){
+        if (key==-1){
+            mario.mueva("N");
+        }
+        else if (!marioImpactoVigas()){
             gravedadMario();
         }
         if (key==38 || EventoTeclado.isUp()){
@@ -295,14 +307,38 @@ public class DonkeyKong {
     }
 
     public void moverTodo(){
-        moverMario(0);
-        modifiqueBarril();
-        donkeyA.modifiqueTurno();
-        for (BarrilA b : barriles){
-            choqueBarrilViga(b);
+        if (mario.isVivo()) {
+            marioImpactoBarril();
+            borreBarril();
+            moverMario(0);
+            modifiqueBarril();
+            donkeyA.modifiqueTurno();
+            for (BarrilA b : barriles) {
+                choqueBarrilViga(b);
+            }
+            if (donkeyA.getLanzeBarril()) {
+                barriles.add(new BarrilA(160, 130));
+            }
+        } else{
+            moverMario(-1);
+            reinicie();
         }
-        if (donkeyA.getLanzeBarril()){
-            barriles.add(new BarrilA(160,130));
+//        System.out.println(mario.getTurno());
+    }
+
+    private void reinicie(){
+        if (mario.getTurno()==100) {
+            mario.reinicie();
+            mario.Reviva();
+            barriles.clear();
+        }
+    }
+
+    private void borreBarril(){
+        for (BarrilA b : barriles){
+            if (b.getX()-8==-7.0 && b.getY()-15==570.0){
+                b.setPosY(1000);
+            }
         }
     }
 
