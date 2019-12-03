@@ -204,7 +204,16 @@ public class DonkeyKongGUI extends JFrame {
 
         private void drawBarriles(Graphics g) {
             for (int i = 0; i < donkeyKongA.getBarriles().size(); i++) {
-                Barril barril = new Barril(donkeyKongA.getPosBarrilX(i), donkeyKongA.getPosBarrilY(i));
+                Barril barril=null;
+                if (donkeyKongA.getPuntosBarril(donkeyKongA.getBarriles().get(i))==0){
+                    barril = new BarrilVerde(donkeyKongA.getPosBarrilX(i), donkeyKongA.getPosBarrilY(i));
+                } else if (donkeyKongA.getPuntosBarril(donkeyKongA.getBarriles().get(i))==10) {
+                    barril = new BarrilAmarillo(donkeyKongA.getPosBarrilX(i), donkeyKongA.getPosBarrilY(i));
+                } else if (donkeyKongA.getPuntosBarril(donkeyKongA.getBarriles().get(i))==20){
+                    barril = new BarrilAzul(donkeyKongA.getPosBarrilX(i), donkeyKongA.getPosBarrilY(i));
+                } else if (donkeyKongA.getPuntosBarril(donkeyKongA.getBarriles().get(i))==30){
+                    barril = new BarrilRojo(donkeyKongA.getPosBarrilX(i), donkeyKongA.getPosBarrilY(i));
+                }
                 barril.draw2(g, 0, 20, 20);
             }
         }

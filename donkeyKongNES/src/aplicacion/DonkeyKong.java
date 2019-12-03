@@ -15,6 +15,7 @@ public class DonkeyKong {
     private DonkeyA donkeyA;
     private int turnoBarril;
     private ArrayList<Integer> posiciones;
+    private int valorBarril;
 
 
     public DonkeyKong(int numJugadores){
@@ -26,8 +27,9 @@ public class DonkeyKong {
         escaleras = new ArrayList<>();
         posiciones = new ArrayList<>();
         prepareElementos(numJugadores);
-        barriles.add(new BarrilA(160,130));
+        barriles.add(new BarrilAmarilloA(160,130));
         turnoBarril=0;
+        valorBarril=2;
     }
 
     public void prepareElementos(int numJugadores) {
@@ -317,13 +319,30 @@ public class DonkeyKong {
                 choqueBarrilViga(b);
             }
             if (donkeyA.getLanzeBarril()) {
-                barriles.add(new BarrilA(160, 130));
+                agregarBarril();
+
             }
         } else{
             moverMario(-1);
             reinicie();
         }
-//        System.out.println(mario.getTurno());
+    }
+
+    /**
+     * Se agrega un nuevo barril al azar
+     */
+    private void agregarBarril(){
+        Random rand = new Random();
+        int n = rand.nextInt(6);
+        if (n==0 || n==1 || n==2){
+            barriles.add(new BarrilAmarilloA(160, 130));
+        } else if (n==3){
+            barriles.add(new BarrilVerdeA(160, 130));
+        } else if (n==4){
+            barriles.add(new BarrilRojoA(160, 130));
+        } else{
+            barriles.add(new BarrilAzulA(160, 130));
+        }
     }
 
     private void reinicie(){
@@ -426,5 +445,9 @@ public class DonkeyKong {
 
     public ArrayList<Integer> getPosiciones(){
         return posiciones;
+    }
+
+    public int getPuntosBarril(BarrilA barril){
+        return barril.getPuntos();
     }
 }

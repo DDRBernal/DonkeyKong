@@ -2,13 +2,14 @@ package aplicacion;
 
 import java.util.ArrayList;
 
-public class BarrilA {
+public abstract class BarrilA {
 
     private double posX;
     private double posY;
     private static int turno;
     private int sentido;
     private ArrayList<Integer> array;
+    protected int puntos;
 
 
 
@@ -49,6 +50,10 @@ public class BarrilA {
 
     public double getY() {
         return posY;
+    }
+
+    public int getPuntos(){
+        return puntos;
     }
 
     public static int getTurno(){
