@@ -450,4 +450,8 @@ public class DonkeyKong {
     public int getPuntosBarril(BarrilA barril){
         return barril.getPuntos();
     }
+
+    public MarioA getMario(){
+        return mario;
+    }
 }

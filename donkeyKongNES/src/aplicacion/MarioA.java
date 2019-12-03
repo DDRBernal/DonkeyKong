@@ -194,4 +194,8 @@ public class MarioA {
         turno=0;
         estaMuerto=false;
     }
+
+    public boolean getestaVivo() {
+        return !estaMuerto;
+    }
 }

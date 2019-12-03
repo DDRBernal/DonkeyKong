@@ -32,11 +32,8 @@ public class DonkeyKong extends JFrame{
                 g.drawImage(image, 0, 0, screenSize.width / 2, screenSize.height / 2, this);
             }
         };
-
-
         panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-
         ImageIcon icon = new ImageIcon(i.getImagen("button1player.png"));
         play = new JButton("",icon);
         play.setBounds(0,0,229,70);
@@ -44,14 +41,11 @@ public class DonkeyKong extends JFrame{
         play.setContentAreaFilled(false);
         play.setFocusPainted(false);
         play.setOpaque(false);
-
         gbc.weighty = 1;
         gbc.weightx = .5;
         gbc.anchor = GridBagConstraints.CENTER;
         panel.add(play,gbc);
-
         setSize(screenSize.width / 2, screenSize.height / 2);
-
         this.setContentPane(panel);
         this.setVisible(true);
         this.setResizable(false);

@@ -3,15 +3,17 @@ package presentacion;
 import aplicacion.MarioA;
 
 public class Jugador extends personaje {
-    protected Imagenes i = new Imagenes();
-    protected int turno;
+    private Imagenes i = new Imagenes();
+    private int turno;
+    private double x,y;
+    private boolean estaVivo;
 
 
-    public Jugador(double x, double y, int turno){
-        this.turno=turno;
-        this.x=x;
-        this.y=y;
-        estaVivo=true;
+    public Jugador(MarioA mario){
+        turno = mario.getTurno();
+        x = mario.getPosX();
+        y = mario.getPosY();
+        estaVivo = mario.getestaVivo();
         start();
     }
 
@@ -46,7 +48,6 @@ public class Jugador extends personaje {
                 frames.add(i.getImagen("imarioMove1.png"));
             }
         }start2();
-
     }
 
     private void start2(){
