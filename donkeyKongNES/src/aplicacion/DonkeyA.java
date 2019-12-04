@@ -1,7 +1,5 @@
 package aplicacion;
 
-import presentacion.Donkey;
-
 import java.util.ArrayList;
 
 public class DonkeyA {
