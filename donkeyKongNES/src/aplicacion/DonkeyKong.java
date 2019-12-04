@@ -12,8 +12,9 @@ public class DonkeyKong {
     private ArrayList<Jugador> jugadores;
     private ArrayList<VigaA> vigas;
     private ArrayList<EscaleraA> escaleras;
+    private ArrayList<SorpresaA> sorpresas;
     private DonkeyA donkeyA;
-    private int turnoBarril;
+    private int turnoBarril, turnoPrincesa;
     private ArrayList<Integer> posiciones;
     private int valorBarril;
 
@@ -26,9 +27,11 @@ public class DonkeyKong {
         vigas = new ArrayList<>();
         escaleras = new ArrayList<>();
         posiciones = new ArrayList<>();
+        sorpresas= new ArrayList<>();
         prepareElementos(numJugadores);
         barriles.add(new BarrilAmarilloA(160,130));
         turnoBarril=0;
+        turnoPrincesa=0;
         valorBarril=2;
     }
 
@@ -144,7 +147,16 @@ public class DonkeyKong {
             if (i<2){y-=14;}
             else{y-=8;}
         }
+        prepareEscaleras6();
+    }
 
+    private void prepareEscaleras6(){
+        int y=135;
+        for (int i=0; i<6; i++){
+            EscaleraA escaleraA = new EscaleraA(231,y);
+            escaleras.add(escaleraA);
+            y-=6;
+        }
     }
 
     private void prepareVigas4(){
@@ -392,6 +404,15 @@ public class DonkeyKong {
         }else{
             turnoBarril=0;
         }
+        modifiquePrincesa();
+    }
+
+    private void modifiquePrincesa(){
+        if (turnoPrincesa<30){
+            turnoPrincesa++;
+        } else{
+            turnoPrincesa=0;
+        }
     }
 
     public double getPosMarioX(){
@@ -453,5 +474,17 @@ public class DonkeyKong {
 
     public MarioA getMario(){
         return mario;
+    }
+
+    public int getVidasMario(){
+        return mario.getVida();
+    }
+
+    public DonkeyA getDonkey() {
+        return donkeyA;
+    }
+
+    public boolean getCambiarPrincesa() {
+        return turnoPrincesa<15;
     }
 }
