@@ -10,11 +10,13 @@ public class Donkey extends Objeto {
 
     private ArrayList<BufferedImage> frames2 = new ArrayList<>();
     private int turno;
+    private boolean lanzeBarrilRojo;
 
     public Donkey(DonkeyA donkey){
         x=donkey.getPosX();
         y=donkey.getPosY();
         turno=donkey.getTurno();
+        lanzeBarrilRojo=donkey.getLanzarBarrilRojo();
         carga();
     }
 
@@ -29,8 +31,10 @@ public class Donkey extends Objeto {
             frames2.add(i.getImagen("donkeyKong3.png"));
         } else if (turno>=60 && turno<93){
             frames2.add(i.getImagen("donkeyKong4.png"));
-        } else{
-            frames2.add(i.getImagen("donkeyKong.png"));
+        }else {
+            frames2.add(i.getImagen("donkeyKong3.png"));
+        }  if (lanzeBarrilRojo) {
+            frames2.add(i.getImagen("donkeyL.png"));
         }
     }
 

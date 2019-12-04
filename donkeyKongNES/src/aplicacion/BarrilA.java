@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public abstract class BarrilA {
 
-    private double posX;
-    private double posY;
-    private static int turno;
-    private int sentido;
-    private ArrayList<Integer> array;
+    protected double posX;
+    protected double posY;
+    protected static int turno;
+    protected int sentido;
+    protected ArrayList<Integer> array;
     protected int puntos;
 
 

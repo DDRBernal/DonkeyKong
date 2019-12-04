@@ -350,8 +350,8 @@ public class DonkeyKong {
             barriles.add(new BarrilAmarilloA(160, 130));
         } else if (n==3){
             barriles.add(new BarrilVerdeA(160, 130));
-        } else if (n==4){
-            barriles.add(new BarrilRojoA(160, 130));
+        } else if (donkeyA.getLanzarBarrilRojo()){
+            barriles.add(new BarrilRojoA(100, 165));
         } else{
             barriles.add(new BarrilAzulA(160, 130));
         }

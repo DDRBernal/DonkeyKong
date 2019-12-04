@@ -1,6 +1,7 @@
 package aplicacion;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class DonkeyA {
 
@@ -8,7 +9,7 @@ public class DonkeyA {
     private double posX,posY;
     private boolean estaMuerto;
     private static boolean lanzeBarril;
-    private static ArrayList<Integer> yaLanzo;
+    private static boolean lanzarBarrilRojo;
 
 
     public DonkeyA(double posX, double posY){
@@ -17,11 +18,15 @@ public class DonkeyA {
         turno=0;
         estaMuerto=false;
         lanzeBarril=false;
-        yaLanzo=new ArrayList<>();
+        lanzarBarrilRojo=false;
     }
 
     public void modifiqueTurno(){
-        if (turno<=93) {
+        Random rand = new Random();
+        int n = rand.nextInt(2);
+        lanzarBarrilRojo= (n == 0);
+        System.out.println(lanzarBarrilRojo+" "+n);
+        if (turno<93) {
             turno++;
             setLanzeBarril(false);
         } else{
@@ -53,6 +58,10 @@ public class DonkeyA {
 
     public static int getTurno(){
         return turno;
+    }
+
+    public static boolean getLanzarBarrilRojo(){
+        return lanzarBarrilRojo;
     }
 
 }
