@@ -251,6 +251,15 @@ public class DonkeyKong {
         return choco;
     }
 
+    private void impactoBarrilEscalera(BarrilA b){
+        for (EscaleraA escaleraA: escaleras) {
+            if (b.impacto(escaleraA)) {
+                b.setPosY(1);
+            }
+        }
+    }
+
+
     public boolean marioImpactoVigas(){
         boolean choco=false;
         for (int i=0; i<vigas.size();i++){
@@ -375,24 +384,27 @@ public class DonkeyKong {
 
     private void choqueBarrilViga(BarrilA b){
         int moverse=0;
-        for (VigaA v: vigas){
-            if ((b.getX()>=v.getX() && b.getX()<=v.getX()+30)) {
+        if (b.getPuntos()==20) {
+            impactoBarrilEscalera(b);
+        }
+        for (VigaA v : vigas) {
+            if ((b.getX() >= v.getX() && b.getX() <= v.getX() + 30)) {
                 if (b.getY() == v.getY() - 22) {
                     b.setPosY(2);
                     moverse = 0;
                     break;
-                } else if (b.getY() == v.getY() - 20){
-                    moverse=0;
+                } else if (b.getY() == v.getY() - 20) {
+                    moverse = 0;
                     break;
-                }else{
-                    moverse=2;
+                } else {
+                    moverse = 2;
                 }
             }
         }
-        if (moverse==2){
+        if (moverse == 2) {
             b.setPosY(1);
             b.setSentido();
-        } else if (moverse==0){
+        } else if (moverse == 0) {
             b.muevase(b.getSentido());
             b.setArray();
         }

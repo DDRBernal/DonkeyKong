@@ -72,4 +72,8 @@ public abstract class BarrilA {
     public void setArray(){
         array.clear();
     }
+
+    public boolean impacto(EscaleraA escaleraA){
+        return false;
+    }
 }

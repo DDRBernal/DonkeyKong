@@ -33,7 +33,7 @@ public class Donkey extends Objeto {
             frames2.add(i.getImagen("donkeyKong4.png"));
         }else {
             frames2.add(i.getImagen("donkeyKong3.png"));
-        }  if (lanzeBarrilRojo) {
+        } if (lanzeBarrilRojo){
             frames2.add(i.getImagen("donkeyL.png"));
         }
     }

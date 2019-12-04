@@ -20,6 +20,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.*;
+import java.util.concurrent.TimeUnit;
 
 
 public class DonkeyKongGUI extends JFrame {
@@ -275,7 +276,6 @@ public class DonkeyKongGUI extends JFrame {
                         Thread.sleep(35);
                     } catch (InterruptedException ex) {
                     }
-
             }
 
         }

@@ -6,4 +6,16 @@ public class BarrilAzulA extends BarrilA {
         super(x,y);
         puntos=20;
     }
+
+    public void setPosX(double x) {
+        posX += x;
+        posX = posX < 1 ? 1 : posX;
+        posX = posX > 544 ? 544 : posX;
+    }
+
+    public boolean impacto(EscaleraA escaleraA){
+        double xEscalera = escaleraA.getX();
+        double yEscalera = escaleraA.getY();
+        return (posX>=xEscalera-8 && posX<=xEscalera+8) && (posY>= yEscalera-20 && posY<=yEscalera+20);
+    }
 }
