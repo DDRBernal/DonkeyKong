@@ -134,7 +134,6 @@ public class DonkeyKongGUI extends JFrame {
 
     public class DonkeyKongGame extends JPanel {
 
-
         private Imagenes i = new Imagenes();
         private Objeto jugador;
 
@@ -149,17 +148,51 @@ public class DonkeyKongGUI extends JFrame {
             g.drawImage(i.getImagen("fondoJuego.jpg"), 0, 0, getWidth(), getHeight(), this);
             //Dibujar barriles iniciales
             g.drawImage(i.getImagen("barrilesIniciales.jpg"), 50, 89, 38, 60, this);
-            long startFrameTime = (long) (999999999 * Math.random());
-            int Mx = (int) ((startFrameTime + System.nanoTime()) * Math.abs(-5) * 0.000000001) % 2;
             drawBarriles(g);
             drawVigas(g);
             drawDonkey(g);
             drawEscaleras(g);
             drawBarril(g);
+            drawVidas(g);
+            drawPrincesa(g);
             jugador = new Jugador(donkeyKongA.getPosMarioX(), donkeyKongA.getPosMarioY(),donkeyKongA.getTurnoMario());
             jugador.draw(g, 0, 30, 35);
         }
 
+        /**
+         *
+         * @param g
+         */
+        private void drawVidas(Graphics g){
+            ArrayList<BufferedImage> frames2 = new ArrayList<>();
+            if (donkeyKongA.getVidasMario()==5) {
+                frames2.add(i.getImagen("vidasMario5.png"));
+                g.drawImage(frames2.get(0), 60, 30, 40, 20, null);
+            } else if (donkeyKongA.getVidasMario()==4){
+                frames2.add(i.getImagen("vidasMario4.png"));
+                g.drawImage(frames2.get(0), 60, 30, 36, 18, null);
+            } else if (donkeyKongA.getVidasMario()==3){
+                frames2.add(i.getImagen("vidasMario3.png"));
+                g.drawImage(frames2.get(0), 60, 30, 30, 15, null);
+            } else if (donkeyKongA.getVidasMario()==2){
+                frames2.add(i.getImagen("vidasMario2.png"));
+                g.drawImage(frames2.get(0), 60, 30, 26, 13, null);
+            } else if (donkeyKongA.getVidasMario()==1){
+                frames2.add(i.getImagen("vidasMario1.png"));
+                g.drawImage(frames2.get(0), 60, 30, 17, 10, null);
+            }
+        }
+
+        private void drawPrincesa(Graphics g){
+            ArrayList<BufferedImage> frames2 = new ArrayList<>();
+            if (donkeyKongA.getCambiarPrincesa()){
+                frames2.add(i.getImagen("princesa1.png"));
+                g.drawImage(frames2.get(0), 250, 35, 30, 50, null);
+            } else{
+                frames2.add(i.getImagen("princesa2.png"));
+                g.drawImage(frames2.get(0),  250,  35, 30, 50, null);
+            }
+        }
 
         private void drawBarril(Graphics g){
             ArrayList<BufferedImage> frames2 = new ArrayList<>();
@@ -190,7 +223,7 @@ public class DonkeyKongGUI extends JFrame {
             int conta=0;
             for (EscaleraA e: donkeyKongA.getEscaleras()){
                 if (donkeyKongA.getPosiciones().indexOf(conta)==-1){
-                    Escalera escalera = new Escalera(e.getX(),e.getY());
+                    Escalera escalera = new Escalera(e);
                     escalera.draw2(g, 0, 20, 15);
                 }
                 conta++;
@@ -198,7 +231,7 @@ public class DonkeyKongGUI extends JFrame {
         }
 
         private void drawDonkey(Graphics g) {
-            Donkey donkey = new Donkey(donkeyKongA.getPosDonkeyX(), donkeyKongA.getPosDonkeyY(),donkeyKongA.getTurnoDonkey());
+            Donkey donkey = new Donkey(donkeyKongA.getDonkey());
             donkey.draw2(g, 0, 70, 70);
         }
 

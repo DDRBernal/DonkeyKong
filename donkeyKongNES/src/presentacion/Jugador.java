@@ -4,16 +4,14 @@ import aplicacion.MarioA;
 
 public class Jugador extends personaje {
     private Imagenes i = new Imagenes();
-    private int turno;
-    private double x,y;
-    private boolean estaVivo;
+    protected int turno;
 
 
-    public Jugador(MarioA mario){
-        turno = mario.getTurno();
-        x = mario.getPosX();
-        y = mario.getPosY();
-        estaVivo = mario.getestaVivo();
+    public Jugador(double x, double y, int turno){
+        this.turno=turno;
+        this.x=x;
+        this.y=y;
+        estaVivo=true;
         start();
     }
 

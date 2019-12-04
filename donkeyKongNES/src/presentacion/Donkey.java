@@ -11,10 +11,10 @@ public class Donkey extends Objeto {
     private ArrayList<BufferedImage> frames2 = new ArrayList<>();
     private int turno;
 
-    public Donkey(double x, double y, int turno){
-        this.x=x;
-        this.y=y;
-        this.turno=turno;
+    public Donkey(DonkeyA donkey){
+        x=donkey.getPosX();
+        y=donkey.getPosY();
+        turno=donkey.getTurno();
         carga();
     }
 

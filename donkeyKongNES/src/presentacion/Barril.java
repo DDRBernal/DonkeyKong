@@ -5,6 +5,7 @@ import java.util.*;
 
 public abstract class Barril extends Objeto{
     protected ArrayList<BufferedImage> frames2 = new ArrayList<>();
+    private double x,y;
 
     public Barril(double x, double y){
         this.x=x;

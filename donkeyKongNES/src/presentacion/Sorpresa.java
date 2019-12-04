@@ -1,24 +1,23 @@
 package presentacion;
 
-import aplicacion.EscaleraA;
+import aplicacion.SorpresaA;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class Escalera extends Objeto {
+public abstract class Sorpresa extends Objeto {
 
-    private ArrayList<BufferedImage> frames2 = new ArrayList<>();
+    protected ArrayList<BufferedImage> frames2 = new ArrayList<>();
 
-    public Escalera(EscaleraA e){
-        x=e.getX();
-        y=e.getY();
-        carga();
+    public Sorpresa(double x, double y){
+        this.x=x;
+        this.y=y;
+//        x= sorpresaA.getX();
+//        y= sorpresaA.getY();
     }
 
-    public void carga(){
-        frames2.add(i.getImagen("escalera.jpg"));
-    }
+    public abstract void carga();
 
     /**
      * Dibujar las imagenes
