@@ -1,7 +1,4 @@
 package aplicacion;
-import presentacion.Barril;
-import presentacion.Escalera;
-import presentacion.Viga;
 
 import java.util.*;
 
@@ -48,19 +45,19 @@ public class DonkeyKong {
      */
     private void prepareEscaleras() {
         int y = 582;
-        EscaleraA escalera = new EscaleraA(200, 590);
+        EscaleraA escalera = new Segmentada(200, 590);
         escaleras.add(escalera);
-        EscaleraA escalera11 = new EscaleraA(200, 530);
+        EscaleraA escalera11 = new Segmentada(200, 530);
         escaleras.add(escalera11);
         for (int i = 0; i < 4; i++) {
             if (i == 3) {
                 y += 1;
             }
-            EscaleraA escalera12 = new EscaleraA(380, y);
+            EscaleraA escalera12 = new Completa(380, y);
             escaleras.add(escalera12);
             y -= 15;
         }
-        EscaleraA escaleraN = new EscaleraA(380, y);
+        EscaleraA escaleraN = new Completa(380, y);
         escaleras.add(escaleraN);
         posiciones.add(escaleras.size()-1);
         prepareEscaleras2();
@@ -69,16 +66,16 @@ public class DonkeyKong {
     private void prepareEscaleras2() {
         int y = 497;
         for (int i = 0; i < 5; i++) {
-            EscaleraA escalera = new EscaleraA(230, y);
+            EscaleraA escalera = new Completa(230, y);
             escaleras.add(escalera);
             y -= 15;
         }
-        EscaleraA escaleraN = new EscaleraA(230, y);
+        EscaleraA escaleraN = new Completa(230, y);
         escaleras.add(escaleraN);
         posiciones.add(escaleras.size()-1);
         y = 489;
         for (int j = 0; j < 5; j++) {
-            EscaleraA escalera = new EscaleraA(110, y);
+            EscaleraA escalera = new Completa(110, y);
             escaleras.add(escalera);
             y -= 15;
         }
@@ -88,24 +85,24 @@ public class DonkeyKong {
 
     private void prepareEscaleras3() {
         int y = 402;
-        EscaleraA escalera = new EscaleraA(170, 408);
+        EscaleraA escalera = new Segmentada(170, 408);
         escaleras.add(escalera);
-        EscaleraA escalera11 = new EscaleraA(170, 341);
+        EscaleraA escalera11 = new Segmentada(170, 341);
         escaleras.add(escalera11);
         for (int i = 0; i < 5; i++) {
-            EscaleraA escalera1 = new EscaleraA(260, y);
+            EscaleraA escalera1 = new Completa(260, y);
             escaleras.add(escalera1);
             y -= 14;
-        }EscaleraA escaleraN = new EscaleraA(260, y);
+        }EscaleraA escaleraN = new Completa(260, y);
         escaleras.add(escaleraN);
         posiciones.add(escaleras.size()-1);
         y=397;
         for (int i =0; i<4; i++) {
-            EscaleraA escalera22 = new EscaleraA(350, y);
+            EscaleraA escalera22 = new Completa(350, y);
             escaleras.add(escalera22);
             y-=14;
         }
-        EscaleraA escaleraN1 = new EscaleraA(350, y);
+        EscaleraA escaleraN1 = new Completa(350, y);
         escaleras.add(escaleraN1);
         posiciones.add(escaleras.size()-1);
         prepareEscaleras4();
@@ -113,22 +110,22 @@ public class DonkeyKong {
 
     private void prepareEscaleras4() {
         int y = 318;
-        EscaleraA escalera0 = new EscaleraA(321, y);
+        EscaleraA escalera0 = new Segmentada(321, y);
         escaleras.add(escalera0);
-        EscaleraA escalera1 = new EscaleraA(321, y-72);
+        EscaleraA escalera1 = new Segmentada(321, y-72);
         escaleras.add(escalera1);
         for (int i=0; i<5; i++) {
-            EscaleraA escaleraA = new EscaleraA(201,y-8);
+            EscaleraA escaleraA = new Completa(201,y-8);
             escaleras.add(escaleraA);
             y-=14;
-        }EscaleraA escaleraN1 = new EscaleraA(201, y-8);
+        }EscaleraA escaleraN1 = new Completa(201, y-8);
         escaleras.add(escaleraN1);
         posiciones.add(escaleras.size()-1);
         for (int i=0; i<4; i++){
-            EscaleraA escaleraA = new EscaleraA(111,y+56);
+            EscaleraA escaleraA = new Completa(111,y+56);
             escaleras.add(escaleraA);
             y-=14;
-        }EscaleraA escaleraN = new EscaleraA(111, y+56);
+        }EscaleraA escaleraN = new Completa(111, y+56);
         escaleras.add(escaleraN);
         posiciones.add(escaleras.size()-1);
         prepareEscaleras5();
@@ -137,12 +134,12 @@ public class DonkeyKong {
     private void prepareEscaleras5(){
         int y=218;
         for (int i=0; i<2; i++) {
-            EscaleraA escaleraA = new EscaleraA(261, y);
+            EscaleraA escaleraA = new Segmentada(261, y);
             escaleras.add(escaleraA);
             y-=50;
         } y=208;
         for (int i=0; i<4; i++){
-            EscaleraA escaleraA = new EscaleraA(411, y);
+            EscaleraA escaleraA = new Completa(411, y);
             escaleras.add(escaleraA);
             if (i<2){y-=14;}
             else{y-=8;}
@@ -153,7 +150,7 @@ public class DonkeyKong {
     private void prepareEscaleras6(){
         int y=135;
         for (int i=0; i<6; i++){
-            EscaleraA escaleraA = new EscaleraA(231,y);
+            EscaleraA escaleraA = new Completa(231,y);
             escaleras.add(escaleraA);
             y-=6;
         }
@@ -234,7 +231,7 @@ public class DonkeyKong {
 
     public void marioSubir(){
         for (EscaleraA e : escaleras) {
-            if (mario.impactado(e)) {
+            if (mario.impactado(e) && e.esEscalable()) {
                 mario.suba(true);
             }
         }
@@ -251,12 +248,15 @@ public class DonkeyKong {
         return choco;
     }
 
-    private void impactoBarrilEscalera(BarrilA b){
+    private boolean impactoBarrilEscalera(BarrilA b){
+        boolean rta=false;
         for (EscaleraA escaleraA: escaleras) {
             if (b.impacto(escaleraA)) {
-                b.setPosY(1);
+                rta=true;
+                b.setPosY(0.1);
             }
         }
+        return rta;
     }
 
 
@@ -330,6 +330,7 @@ public class DonkeyKong {
     }
 
     public void moverTodo(){
+
         if (mario.isVivo()) {
             marioImpactoBarril();
             borreBarril();
@@ -383,12 +384,12 @@ public class DonkeyKong {
     }
 
     private void choqueBarrilViga(BarrilA b){
+        if (b.getPuntos()==20){
+            choqueBarrilAzul(b);
+        }else{
         int moverse=0;
-        if (b.getPuntos()==20) {
-            impactoBarrilEscalera(b);
-        }
         for (VigaA v : vigas) {
-            if ((b.getX() >= v.getX() && b.getX() <= v.getX() + 30)) {
+            if ((b.getX() >= v.getX() && b.getX() <= v.getX() + 30) ) {
                 if (b.getY() == v.getY() - 22) {
                     b.setPosY(2);
                     moverse = 0;
@@ -407,8 +408,45 @@ public class DonkeyKong {
         } else if (moverse == 0) {
             b.muevase(b.getSentido());
             b.setArray();
+        }}
+    }
+
+    private void choqueBarrilAzul(BarrilA b){
+        int moverse=0;
+        for (VigaA v : vigas) {
+            if ((b.getX() >= v.getX() && b.getX() <= v.getX() + 30) && !noEstaEnlista(vigas.indexOf(v))) {
+                if (b.getY() == v.getY() - 22) {
+                    b.setPosY(2);
+                    moverse = 0;
+                    break;
+                } else if (b.getY() == v.getY() - 20) {
+                    moverse = 0;
+                    break;
+                } else{
+                    moverse = 2;
+                }
+            }
+        }
+        if (moverse == 2) {
+            b.setPosY(1);
+            b.setSentido();
+        } else if (moverse == 0) {
+            b.muevase(b.getSentido());
+            b.setArray();
         }
     }
+
+    private boolean noEstaEnlista(int i) {
+        Integer[] array = {16,29,30,37,47,50,62,78};
+        boolean noEsta=false;
+        for (int k =0;k<array.length;k++){
+            if (i==array[k]){
+                noEsta=true;
+            }
+        }
+        return noEsta;
+    }
+
 
     private void modifiqueBarril(){
         if (turnoBarril<30){

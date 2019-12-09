@@ -1,6 +1,6 @@
 package aplicacion;
 
-public class SorpresaA {
+public abstract class SorpresaA {
 
     private double posX,posY;
 

@@ -1,15 +1,17 @@
 package aplicacion;
 
-public class EscaleraA{
+public abstract class EscaleraA{
 
     private double posX;
     private double posY;
+    protected boolean escalable;
 
 
 
     public EscaleraA(double x, double y){
         posX=x;
         posY=y;
+        escalable=true;
     }
 
     public void setPosX(double x) {
@@ -30,5 +32,9 @@ public class EscaleraA{
 
     public double getY() {
         return posY;
+    }
+
+    public boolean esEscalable(){
+        return escalable;
     }
 }

@@ -1,6 +1,5 @@
 package aplicacion;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class DonkeyA {
@@ -25,7 +24,6 @@ public class DonkeyA {
         Random rand = new Random();
         int n = rand.nextInt(2);
         lanzarBarrilRojo= (n == 0);
-        System.out.println(lanzarBarrilRojo+" "+n);
         if (turno<93) {
             turno++;
             setLanzeBarril(false);

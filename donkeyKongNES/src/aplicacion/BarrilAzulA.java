@@ -16,6 +16,6 @@ public class BarrilAzulA extends BarrilA {
     public boolean impacto(EscaleraA escaleraA){
         double xEscalera = escaleraA.getX();
         double yEscalera = escaleraA.getY();
-        return (posX>=xEscalera-8 && posX<=xEscalera+8) && (posY>= yEscalera-20 && posY<=yEscalera+20);
+        return (posX>=xEscalera-8 && posX<=xEscalera+8) && (posY> yEscalera-5 && posY<=yEscalera+15);
     }
 }

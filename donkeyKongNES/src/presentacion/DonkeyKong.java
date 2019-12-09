@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.image.BufferedImage;
 import javax.swing.*;
-public class DonkeyKong extends JFrame{
+public class DonkeyKong extends JDialog{
 
     private JPanel panel;
     private Dimension screenSize;
@@ -18,7 +18,8 @@ public class DonkeyKong extends JFrame{
     private Imagenes i = new Imagenes();
 
     public DonkeyKong(){
-        super("DonkeyKong");
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setTitle("Donkey Kong");
         prepareElementos();
         prepareAcciones();
     }
@@ -76,6 +77,10 @@ public class DonkeyKong extends JFrame{
         donkeyKongGUI.setVisible(true);
         donkeyKongGUI.start();
         donkeyKongP.setVisible(false);
+    }
+
+    public void createDonkey(){
+        donkeyKongP = new DonkeyKong();
     }
 
     /**

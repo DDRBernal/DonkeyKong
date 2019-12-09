@@ -8,19 +8,9 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.*;
-import java.io.*;
 import java.util.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.*;
-import java.util.concurrent.TimeUnit;
+
 
 
 public class DonkeyKongGUI extends JFrame {
@@ -149,13 +139,13 @@ public class DonkeyKongGUI extends JFrame {
             g.drawImage(i.getImagen("fondoJuego.jpg"), 0, 0, getWidth(), getHeight(), this);
             //Dibujar barriles iniciales
             g.drawImage(i.getImagen("barrilesIniciales.jpg"), 50, 89, 38, 60, this);
-            drawBarriles(g);
             drawVigas(g);
             drawDonkey(g);
             drawEscaleras(g);
             drawBarril(g);
             drawVidas(g);
             drawPrincesa(g);
+            drawBarriles(g);
             jugador = new Jugador(donkeyKongA.getPosMarioX(), donkeyKongA.getPosMarioY(),donkeyKongA.getTurnoMario());
             jugador.draw(g, 0, 30, 35);
         }
