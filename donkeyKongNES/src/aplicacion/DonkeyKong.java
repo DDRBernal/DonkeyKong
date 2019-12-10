@@ -38,6 +38,12 @@ public class DonkeyKong {
         prepareVigas3();
         prepareVigas4();
         prepareEscaleras();
+        prepareSorpresas();
+    }
+
+    private void prepareSorpresas() {
+        CorazonA corazonA = new CorazonA(410,370);
+        sorpresas.add(corazonA);
     }
 
     /**
@@ -330,7 +336,6 @@ public class DonkeyKong {
     }
 
     public void moverTodo(){
-
         if (mario.isVivo()) {
             marioImpactoBarril();
             borreBarril();
@@ -536,5 +541,9 @@ public class DonkeyKong {
 
     public boolean getCambiarPrincesa() {
         return turnoPrincesa<15;
+    }
+
+    public ArrayList<SorpresaA> getSorpresas() {
+        return sorpresas;
     }
 }

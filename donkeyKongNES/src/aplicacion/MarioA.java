@@ -23,7 +23,7 @@ public class MarioA {
     public MarioA(double posX, double posY){
         this.posX = posX;
         this.posY = posY;
-        this.vida = 5;
+        this.vida = 3;
         this.estaMuerto = false;
         turno=0;
         turnoMuerto=0;

@@ -146,8 +146,16 @@ public class DonkeyKongGUI extends JFrame {
             drawVidas(g);
             drawPrincesa(g);
             drawBarriles(g);
+            drawSorpresas(g);
             jugador = new Jugador(donkeyKongA.getPosMarioX(), donkeyKongA.getPosMarioY(),donkeyKongA.getTurnoMario());
             jugador.draw(g, 0, 30, 35);
+        }
+
+        private void drawSorpresas(Graphics g) {
+            for (SorpresaA s: donkeyKongA.getSorpresas()){
+                Corazon corazon = new Corazon(s.getX(),s.getY());
+                corazon.draw2(g,0,17,17);
+            }
         }
 
         /**

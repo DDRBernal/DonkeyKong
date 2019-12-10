@@ -16,8 +16,10 @@ public class DonkeyKong extends JDialog{
     private DonkeyKongGUI donkeyKongGUI;
     private JButton play;
     private Imagenes i = new Imagenes();
+    private boolean hacerVisible;
 
-    public DonkeyKong(){
+    public DonkeyKong(boolean hacerVisible){
+        this.hacerVisible = hacerVisible;
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setTitle("Donkey Kong");
         prepareElementos();
@@ -48,7 +50,7 @@ public class DonkeyKong extends JDialog{
         panel.add(play,gbc);
         setSize(screenSize.width / 2, screenSize.height / 2);
         this.setContentPane(panel);
-        this.setVisible(true);
+        if (hacerVisible) this.setVisible(true);
         this.setResizable(false);
         this.setLayout(null);
         setLocationRelativeTo(null);
@@ -74,13 +76,15 @@ public class DonkeyKong extends JDialog{
      */
     public void jugar(int numero) {
         donkeyKongGUI = new DonkeyKongGUI(this);
-        donkeyKongGUI.setVisible(true);
+        if (hacerVisible){
+            donkeyKongGUI.setVisible(true);
+        }
         donkeyKongGUI.start();
         donkeyKongP.setVisible(false);
     }
 
     public void createDonkey(){
-        donkeyKongP = new DonkeyKong();
+        donkeyKongP = new DonkeyKong(hacerVisible);
     }
 
     /**
@@ -93,9 +97,13 @@ public class DonkeyKong extends JDialog{
         }
     }
 
+    public void noHacerVisible(){
+        hacerVisible=false;
+    }
+
     public static void main(String[] args){
-        donkeyKongP = new DonkeyKong();
-        donkeyKongP.setVisible(true);
+        donkeyKongP = new DonkeyKong(true);
+        //donkeyKongP.setVisible(true);
     }
 
 }
