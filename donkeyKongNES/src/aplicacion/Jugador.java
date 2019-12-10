@@ -1,7 +1,10 @@
 package aplicacion;
 
-public class Jugador {
+import java.io.Serializable;
 
+public class Jugador implements Serializable {
+
+    private static final long serialVersionUID = 8799656478674716638L;
     protected int puntos;
     protected int vidas;
 

@@ -5,9 +5,12 @@ import presentacion.Escalera;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.*;
+import java.io.Serializable;
 import java.util.*;
 
-public class MarioA {
+public class MarioA implements Serializable {
+
+    private static final long serialVersionUID = 8799656478674716638L;
     private boolean estado;
     private double posX,posY;
     private int vida;

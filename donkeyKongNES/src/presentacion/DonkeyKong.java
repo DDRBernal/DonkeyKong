@@ -57,6 +57,8 @@ public class DonkeyKong extends JDialog{
     }
 
 
+
+
     public void prepareAcciones(){
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
@@ -69,7 +71,10 @@ public class DonkeyKong extends JDialog{
                 jugar(1);
             }
         });
+
     }
+
+
 
     /**
      * Inicializar juego

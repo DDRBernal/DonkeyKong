@@ -1,9 +1,11 @@
 package aplicacion;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class BarrilA {
+public abstract class BarrilA implements Serializable {
 
+    private static final long serialVersionUID = 8799656478674716638L;
     protected double posX;
     protected double posY;
     protected static int turno;

@@ -1,5 +1,6 @@
 package presentacion;
 import aplicacion.*;
+import excepciones.DonkeyPoobExcepcion;
 
 import javax.swing.border.EmptyBorder;
 import java.awt.Graphics;
@@ -18,10 +19,11 @@ public class DonkeyKongGUI extends JFrame {
     private boolean running, end;
     private aplicacion.DonkeyKong donkeyKongA;
     private DonkeyKongGame game;
-    private JButton jugar;
-    private ImageIcon img;
-    private final Set<Integer> pressed = new HashSet<Integer>();
     private DonkeyKong dk;
+
+    private JMenuBar menuBar;
+    private JMenu menu;
+    private JMenuItem nuevo, salir, abrir, guardar, importar, exportar;
 
     public DonkeyKongGUI(DonkeyKong dk){
         super("DonkeyKong");
@@ -44,35 +46,28 @@ public class DonkeyKongGUI extends JFrame {
         getContentPane().add(game,BorderLayout.CENTER);
         setBounds(0,0,544,700);
         setLocationRelativeTo(null);
-        //preparePantallaPrincipal();
+        prepareElementosMenu();
     }
 
-    /**
-     * realizar la pantalla principal
-     */
-    public void preparePantallaPrincipal() {
-        jugar = new JButton();
-        ImageIcon imgf = new ImageIcon("resources/button1player.jpg");
-        jugar.setIcon(imgf);
-        setInvisibleButton(jugar);
-        img =  new ImageIcon("resources/fondoJuego.jpg");
-        setContentPane(new JLabel(img));
-        setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        add(jugar, gbc);
-        setVisible(true);
+    private void prepareElementosMenu(){
+        menuBar = new JMenuBar();
+        menu = new JMenu("Menu");
+        nuevo = new JMenuItem ("Nuevo");
+        salir = new JMenuItem("Salir");
+        abrir = new JMenuItem("Abrir");
+        guardar = new JMenuItem("Guardar");
+        importar = new JMenuItem("Importar");
+        exportar = new JMenuItem("Exportar");
+        menu.add(nuevo);
+        menu.add(abrir);
+        menu.add(guardar);
+        menu.add(exportar);
+        menu.add(importar);
+        menu.add(salir);
+        menuBar.add(menu);
+        setJMenuBar(menuBar);
     }
 
-    /**
-     * Hqce invisibles los botones
-     * @param button
-     */
-    private void setInvisibleButton(JButton button) {
-        button.setOpaque(false);
-        button.setContentAreaFilled(false);
-        button.setBorderPainted(false);
-    }
 
 
     /**
@@ -86,30 +81,31 @@ public class DonkeyKongGUI extends JFrame {
             }
         });
         addKeyListener(new EventoTeclado());
-//        addKeyListener(new KeyAdapter() {
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//                pressed.add(e.getKeyCode());
-//                if (pressed.size()>1){
-//                    for (Integer num: pressed){
-//                        donkeyKongA.moverMario(num);
-//
-//                    }
-//                } else{
-//                    donkeyKongA.moverMario(e.getKeyCode());
-//
-//                }
-//            }
-//            @Override
-//            public void keyReleased(KeyEvent e) {
-//                pressed.remove(e.getKeyCode());
-//            }
-//
-//            @Override
-//            public void keyTyped(KeyEvent e) {
-//
-//            }
-//        });
+        prepareAccionesMenu();
+    }
+
+    private  void prepareAccionesMenu(){
+        nuevo.addActionListener(e -> nuevo());
+        salir.addActionListener(e -> salga());
+        abrir.addActionListener(e -> abrir());
+        guardar.addActionListener(e -> guardar());
+        importar.addActionListener(e -> exportar());
+        exportar.addActionListener(e -> importar());
+    }
+    private void exportar(){
+        JOptionPane.showMessageDialog(this, DonkeyPoobExcepcion.OPCION_EN_CONSTRUCCION);
+    }
+    private void importar(){
+        JOptionPane.showMessageDialog(this, DonkeyPoobExcepcion.OPCION_EN_CONSTRUCCION);
+    }
+    private void abrir(){
+        JOptionPane.showMessageDialog(this, DonkeyPoobExcepcion.OPCION_EN_CONSTRUCCION);
+    }
+    private void guardar(){
+        JOptionPane.showMessageDialog(this, DonkeyPoobExcepcion.OPCION_EN_CONSTRUCCION);
+    }
+    private void nuevo(){
+        JOptionPane.showMessageDialog(this, DonkeyPoobExcepcion.OPCION_EN_CONSTRUCCION);
     }
 
     /**
@@ -127,6 +123,10 @@ public class DonkeyKongGUI extends JFrame {
 
         private Imagenes i = new Imagenes();
         private Objeto jugador;
+
+        public void actualice(){
+            repaint();
+        }
 
         public DonkeyKongGame(aplicacion.DonkeyKong donkeyKongA) {
             setPreferredSize(new Dimension(587, 480));

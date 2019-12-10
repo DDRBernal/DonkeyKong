@@ -1,7 +1,10 @@
 package aplicacion;
 
-public abstract class EscaleraA{
+import java.io.Serializable;
 
+public abstract class EscaleraA implements Serializable {
+
+    private static final long serialVersionUID = 8799656478674716638L;
     private double posX;
     private double posY;
     protected boolean escalable;

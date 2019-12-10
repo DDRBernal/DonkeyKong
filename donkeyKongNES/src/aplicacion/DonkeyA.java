@@ -1,9 +1,11 @@
 package aplicacion;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class DonkeyA {
+public class DonkeyA implements Serializable {
 
+    private static final long serialVersionUID = 8799656478674716638L;
     private static int turno;
     private double posX,posY;
     private boolean estaMuerto;

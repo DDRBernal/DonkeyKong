@@ -1,9 +1,14 @@
 package aplicacion;
 
+import excepciones.DonkeyPoobExcepcion;
+
+//Paquetes de java
+import java.io.*;
 import java.util.*;
 
-public class DonkeyKong {
+public class DonkeyKong implements Serializable{
 
+    private static final long serialVersionUID = 8799656478674716638L;
     private ArrayList<BarrilA> barriles;
     private MarioA mario;
     private ArrayList<Jugador> jugadores;
@@ -14,6 +19,8 @@ public class DonkeyKong {
     private int turnoBarril, turnoPrincesa;
     private ArrayList<Integer> posiciones;
     private int valorBarril;
+
+
 
 
     public DonkeyKong(int numJugadores){
@@ -31,7 +38,7 @@ public class DonkeyKong {
         turnoPrincesa=0;
         valorBarril=2;
     }
-
+    //Elementos del Nivel
     public void prepareElementos(int numJugadores) {
         prepareVigas();
         prepareVigas2();
@@ -234,7 +241,9 @@ public class DonkeyKong {
         }
     }
 
-
+    /**
+     * Permite que Mario salte.
+     */
     public void marioSubir(){
         for (EscaleraA e : escaleras) {
             if (mario.impactado(e) && e.esEscalable()) {
@@ -243,6 +252,10 @@ public class DonkeyKong {
         }
     }
 
+    /**
+     * Revisa si mario colisiona con un barril.
+     * @return
+     */
     public boolean marioImpactoBarril(){
         boolean choco=false;
         for (BarrilA b : barriles){
@@ -254,6 +267,11 @@ public class DonkeyKong {
         return choco;
     }
 
+    /**
+     * Revisa un barril y una escalera collisionan.
+     * @param b el barril a revisar
+     * @return
+     */
     private boolean impactoBarrilEscalera(BarrilA b){
         boolean rta=false;
         for (EscaleraA escaleraA: escaleras) {
@@ -265,7 +283,10 @@ public class DonkeyKong {
         return rta;
     }
 
-
+    /**
+     * Revisa si mario collisiona con una viga.
+     * @return
+     */
     public boolean marioImpactoVigas(){
         boolean choco=false;
         for (int i=0; i<vigas.size();i++){
@@ -282,7 +303,11 @@ public class DonkeyKong {
         return choco;
     }
 
-
+    /**
+     * Retorna la altura de la escalera
+     * @param escalera
+     * @return
+     */
     private int alturaEscaleras(EscaleraA escalera){
         int suma=0;
         double conta= escaleras.get(escaleras.indexOf(escalera)).getY();
@@ -298,14 +323,18 @@ public class DonkeyKong {
         return posYs.size();
     }
 
-    public void moverMario(Integer key){
-        if (key==-1){
+    /**
+     *Mueve a Mario en la direccion indicada
+     * @param direccion
+     */
+    public void moverMario(int direccion){
+        if (direccion==-1){
             mario.mueva("N");
         }
         else if (!marioImpactoVigas()){
             gravedadMario();
         }
-        if (key==38 || EventoTeclado.isUp()){
+        if (direccion==38 || EventoTeclado.isUp()){
             marioSubir();
             if (mario.getEstaSubiendo()){
                 mario.mueva("arriba");
@@ -315,10 +344,10 @@ public class DonkeyKong {
                 mario.suba(false);
             }
         }
-        else if (key==39 || EventoTeclado.right){
+        else if (direccion==39 || EventoTeclado.right){
             mario.suba(false);
             mario.mueva("derecha");
-        } else if (key==37 || EventoTeclado.left){
+        } else if (direccion==37 || EventoTeclado.left){
             mario.mueva("izquierda");
             mario.suba(false);
         } else{
@@ -327,14 +356,23 @@ public class DonkeyKong {
         }
     }
 
+    /**
+     * Le adiciona gravedad a mario.
+     */
     private void gravedadMario() {
         mario.setPosY(0.2);
     }
 
+    /**
+     *Hace que mario salte.
+     */
     public void marioSaltar() {
         mario.saltar();
     }
 
+    /**
+     * Actualiza las posiciones de todos los elementos del juego
+     */
     public void moverTodo(){
         if (mario.isVivo()) {
             marioImpactoBarril();
@@ -372,6 +410,9 @@ public class DonkeyKong {
         }
     }
 
+    /**
+     * Reinicia el juego.
+     */
     private void reinicie(){
         if (mario.getTurno()==100) {
             mario.reinicie();
@@ -380,6 +421,9 @@ public class DonkeyKong {
         }
     }
 
+    /**
+     * Borra barriles que estan saliendo de la pantalla.
+     */
     private void borreBarril(){
         for (BarrilA b : barriles){
             if (b.getX()-8==-7.0 && b.getY()-15==570.0){
@@ -388,6 +432,10 @@ public class DonkeyKong {
         }
     }
 
+    /**
+     * Revisa si un barril choca con una viga.
+     * @param b
+     */
     private void choqueBarrilViga(BarrilA b){
         if (b.getPuntos()==20){
             choqueBarrilAzul(b);
@@ -416,6 +464,10 @@ public class DonkeyKong {
         }}
     }
 
+    /**
+     *Revisa si un barrilAzul choca con una viga.
+     * @param b
+     */
     private void choqueBarrilAzul(BarrilA b){
         int moverse=0;
         for (VigaA v : vigas) {
@@ -441,6 +493,11 @@ public class DonkeyKong {
         }
     }
 
+    /**
+     *
+     * @param i
+     * @return
+     */
     private boolean noEstaEnlista(int i) {
         Integer[] array = {16,29,30,37,47,50,62,78};
         boolean noEsta=false;
@@ -452,7 +509,9 @@ public class DonkeyKong {
         return noEsta;
     }
 
-
+    /**
+     *Modifica el turno dle barril
+     */
     private void modifiqueBarril(){
         if (turnoBarril<30){
             turnoBarril++;
@@ -462,6 +521,9 @@ public class DonkeyKong {
         modifiquePrincesa();
     }
 
+    /**
+     *Modifica el turno  de la princesa.
+     */
     private void modifiquePrincesa(){
         if (turnoPrincesa<30){
             turnoPrincesa++;
@@ -470,80 +532,203 @@ public class DonkeyKong {
         }
     }
 
+    /**
+     *Retorna la posicion en x de mario.
+     * @return
+     */
     public double getPosMarioX(){
         return mario.getPosX();
     }
 
+    /**
+     *Retorna la posicion en y de mario.
+     * @return
+     */
     public double getPosMarioY(){
         return mario.getPosY();
     }
 
+    /**
+     *Retorna la posicion en x de donkeyKong.
+     * @return
+     */
     public double getPosDonkeyX() {
         return donkeyA.getPosX();
     }
 
+    /**
+     *Retorna la posicion en y de donkeyKong.
+     * @return
+     */
     public double getPosDonkeyY(){
         return donkeyA.getPosY();
     }
 
-
+    /**
+     * Retorna la posicion en x de un Barril.
+     * @param i
+     * @return
+     */
     public double getPosBarrilX(int i){
         return barriles.get(i).getX();
     }
 
+    /**
+     * Retorna la posicion en y de un Barril.
+     * @param i
+     * @return
+     */
     public double getPosBarrilY(int i){
         return barriles.get(i).getY();
     }
 
+    /**
+     * Retorna la coleccion de barriles.
+     * @return
+     */
     public ArrayList<BarrilA> getBarriles(){
         return barriles;
     }
 
+    /**
+     * Retorna el turno de mario.
+     * @return
+     */
     public int getTurnoMario(){
         return mario.getTurno();
     }
 
+    /**
+     * Retorna la coleccion de vigas.
+     * @return
+     */
     public ArrayList<VigaA> getVigas(){
         return vigas;
     }
 
+    /**
+     * Retorna la coleccion de escaleras.
+     * @return
+     */
     public ArrayList<EscaleraA> getEscaleras(){
         return escaleras;
     }
 
+    /**
+     * Retorna el turno de donkeyKong.
+     * @return
+     */
     public int getTurnoDonkey() {
         return donkeyA.getTurno();
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean getCambiarBarril(){
         return turnoBarril<15;
     }
 
+    /**
+     * Retorna una coleccion con las posiciones.
+     * @return
+     */
     public ArrayList<Integer> getPosiciones(){
         return posiciones;
     }
 
+    /**
+     * Retorna la cantidad que ofrece un barril al destruirse.
+     * @param barril
+     * @return
+     */
     public int getPuntosBarril(BarrilA barril){
         return barril.getPuntos();
     }
 
+    /**
+     * Retorna a Mario.
+     * @return
+     */
     public MarioA getMario(){
         return mario;
     }
 
+    /**
+     * Retorna el numero de vidas de Mario.
+     * @return
+     */
     public int getVidasMario(){
         return mario.getVida();
     }
 
+    /**
+     * Retorna a DonkeyKong.
+     * @return
+     */
     public DonkeyA getDonkey() {
         return donkeyA;
     }
 
+    /**
+     * Retorno el turno de cambio de la princesa.
+     * @return
+     */
     public boolean getCambiarPrincesa() {
         return turnoPrincesa<15;
     }
 
+    /**
+     * Retorna la coleccion de sorpresas.
+     * @return
+     */
     public ArrayList<SorpresaA> getSorpresas() {
         return sorpresas;
+    }
+
+    /**
+     * Guarda el estado actual de los objetos.
+     * @param archivo
+     * @throws DonkeyPoobExcepcion
+     * @throws IOException
+     */
+    public void salve(File archivo) throws DonkeyPoobExcepcion, IOException{
+        ObjectOutputStream out  = new ObjectOutputStream(
+                new FileOutputStream(archivo));
+        out.writeObject(this);
+        out.close();
+        if(!obtenerExtension(archivo).equals("dat")) throw new DonkeyPoobExcepcion(DonkeyPoobExcepcion.EXTENSION_INVALIDA_OBJETOS);
+    }
+
+    /**
+     * Abre un estado del juego.
+     * @param archivo
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws DonkeyPoobExcepcion
+     */
+    public static DonkeyKong abra(File archivo) throws IOException, ClassNotFoundException, DonkeyPoobExcepcion {
+        DonkeyKong game = null;
+        ObjectInputStream in = new ObjectInputStream(
+                new FileInputStream(archivo));
+
+        game =  (DonkeyKong) in.readObject();
+        in.close();
+        if(!obtenerExtension(archivo).equals("dat")) throw new DonkeyPoobExcepcion(DonkeyPoobExcepcion.EXTENSION_INVALIDA_OBJETOS);
+        return game;
+    }
+
+    /**
+     * Retorna la extension de un archivo.
+     * @param archivo
+     * @return
+     */
+    public static String obtenerExtension(File archivo){
+        String nombre = archivo.getName();
+        String apellido = "";
+        if (nombre.lastIndexOf(".")!=-1 && nombre.lastIndexOf(".")!=0) apellido =  nombre.substring(nombre.lastIndexOf(".")+1);
+        return apellido;
     }
 }

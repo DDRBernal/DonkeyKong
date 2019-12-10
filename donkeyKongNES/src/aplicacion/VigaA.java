@@ -1,6 +1,10 @@
 package aplicacion;
 
-public class VigaA {
+import java.io.Serializable;
+
+public class VigaA implements Serializable {
+
+    private static final long serialVersionUID = 8799656478674716638L;
     protected double posX;
     protected double posY;
 
